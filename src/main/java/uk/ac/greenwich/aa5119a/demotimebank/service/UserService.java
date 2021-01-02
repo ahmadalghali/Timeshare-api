@@ -3,8 +3,6 @@ package uk.ac.greenwich.aa5119a.demotimebank.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.jvm.hotspot.asm.Register;
-import sun.rmi.runtime.Log;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.UserRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.web.LoginResponse;
