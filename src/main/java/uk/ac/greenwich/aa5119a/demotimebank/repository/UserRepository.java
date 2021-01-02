@@ -1,6 +1,5 @@
 package uk.ac.greenwich.aa5119a.demotimebank.repository;
 
-import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -17,9 +16,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query(value = "SELECT password FROM user WHERE email = :email")
     String findPasswordByEmail(@Param("email") String email);
 
-    Boolean existsByEmail(String email);
 
-    @Modifying
-    @Query(value = "UPDATE user SET user.logged_in = true WHERE email = :email")
-    User login(@Param("email") String email);
 }

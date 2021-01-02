@@ -22,14 +22,15 @@ public class UserService {
 
         if (DBuser != null) {
             registerResponse.setMessage("user exists");
+            registerResponse.setUser(DBuser);
 
         } else {
 
-            userRepository.save(user);
-
+//            userRepository.save(user);
+            registerResponse.setUser(userRepository.save(user));
             registerResponse.setMessage("registered");
+
         }
-        registerResponse.setUser(user);
 
         return registerResponse;
     }
@@ -45,18 +46,19 @@ public class UserService {
         if (DBuser != null) {
 
             if(DBuser.getPassword().equals(user.getPassword())){
-                loginResponse.setUser(user);
+                loginResponse.setUser(DBuser);
                 loginResponse.setMessage("logged in");
 
                 return loginResponse;
             }
 
-            loginResponse.setUser(user);
+            loginResponse.setUser(DBuser);
             loginResponse.setMessage("incorrect password");
 
             return loginResponse;
 
         } else{
+            user.setId(-1);
             loginResponse.setUser(user);
             loginResponse.setMessage("user does not exist");
             return loginResponse;

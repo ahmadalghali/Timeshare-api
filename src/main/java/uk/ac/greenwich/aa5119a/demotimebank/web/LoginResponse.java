@@ -8,8 +8,7 @@ public class LoginResponse {
     private String message;
 
     public LoginResponse() {
-//        this.user = user;
-//        this.message = message;
+
     }
 
     public User getUser() {
