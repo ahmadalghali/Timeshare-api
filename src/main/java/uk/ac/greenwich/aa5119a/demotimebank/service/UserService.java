@@ -35,18 +35,25 @@ public class UserService {
         LoginResponse loginResponse = new LoginResponse();
 
         if (DBuser != null) {
+
             if(DBuser.getPassword().equals(user.getPassword())){
                 loginResponse.setUser(user);
                 loginResponse.setMessage("logged in");
+
+                return loginResponse;
             }
+
             loginResponse.setUser(user);
             loginResponse.setMessage("incorrect password");
+
+            return loginResponse;
+
         } else{
             loginResponse.setUser(user);
             loginResponse.setMessage("user does not exist");
+            return loginResponse;
         }
 
-        return loginResponse;
     }
 
 
