@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import uk.ac.greenwich.aa5119a.demotimebank.service.UserService;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
 import uk.ac.greenwich.aa5119a.demotimebank.web.LoginResponse;
+import uk.ac.greenwich.aa5119a.demotimebank.web.RegisterResponse;
 
 @RestController
 public class UserController {
@@ -14,7 +15,7 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
+    public RegisterResponse register(@RequestBody User user) {
         return userService.register(user);
     }
 
