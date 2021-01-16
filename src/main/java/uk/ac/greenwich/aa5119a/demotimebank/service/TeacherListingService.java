@@ -73,8 +73,9 @@ public class TeacherListingService {
             teacherListingResponse.setTeacherListing(savedDBListing);
 
         }catch (Exception e){
-            teacherListingResponse.setMessage("failed to save in database");
+            teacherListingResponse.setMessage("failed to save in database Reason: " + e.getMessage());
             teacherListingResponse.setTeacherListing(null);
+            e.printStackTrace();
         }
 
         return teacherListingResponse;
