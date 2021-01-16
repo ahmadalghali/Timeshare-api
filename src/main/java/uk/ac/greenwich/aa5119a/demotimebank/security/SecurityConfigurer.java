@@ -1,7 +1,7 @@
 package uk.ac.greenwich.aa5119a.demotimebank.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.annotation.Bean;
 //import org.springframework.security.authentication.AuthenticationManager;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Bean;
 //import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import uk.ac.greenwich.aa5119a.demotimebank.filter.JwtRequestFilter;
-import uk.ac.greenwich.aa5119a.demotimebank.service.MyUserDetailsService;
+//import uk.ac.greenwich.aa5119a.demotimebank.filter.JwtRequestFilter;
+//import uk.ac.greenwich.aa5119a.demotimebank.service.MyUserDetailsService;
 
 //@EnableWebSecurity
 public class SecurityConfigurer /*extends WebSecurityConfigurerAdapter*/ {
