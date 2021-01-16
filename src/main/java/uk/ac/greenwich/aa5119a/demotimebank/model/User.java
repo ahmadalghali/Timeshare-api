@@ -8,7 +8,6 @@ public class User {
     private int id;
     private String email;
     private String password;
-//    private boolean loggedIn;
 
     protected User() {
     }
@@ -16,7 +15,6 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-//        this.loggedIn = false;
     }
 
     public String getEmail() {
@@ -34,14 +32,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-//    public boolean isLoggedIn() {
-//        return loggedIn;
-//    }
-//
-//    public void setLoggedIn(boolean loggedIn) {
-//        this.loggedIn = loggedIn;
-//    }
 
     public int getId() {
         return id;
