@@ -43,7 +43,6 @@ public class TeacherListingService {
 //            teacherListing.addTeachingStyle(style1);
 //
             TeacherListing teacherListing = new TeacherListing(
-
                     listingRequest.getSubjectId(),
                     listingRequest.getUserId(),
                     listingRequest.getTitle(),
@@ -51,18 +50,18 @@ public class TeacherListingService {
                     listingRequest.getImageId()
             );
 
-            if(listingRequest.getAvailabilityIds().size() > 0){
+//            if(listingRequest.getAvailabilityIds().size() > 0){
                 for(int availabilityId : listingRequest.getAvailabilityIds()){
                     teacherListing.addAvailability(availabilityRepository.findById(availabilityId).get());
                 }
-            }
+//            }
 
 
-            if(listingRequest.getTeachingStyleIds().size() > 0){
+//            if(listingRequest.getTeachingStyleIds().size() > 0){
                 for(int styleId : listingRequest.getTeachingStyleIds()){
                     teacherListing.addTeachingStyle(teachingStyleRepository.findById(styleId).get());
                 }
-            }
+//            }
 
 
             TeacherListing savedDBListing = teacherListingRepository.save(teacherListing);
@@ -73,7 +72,7 @@ public class TeacherListingService {
             teacherListingResponse.setTeacherListing(savedDBListing);
 
         }catch (Exception e){
-            teacherListingResponse.setMessage("failed to save in database Reason: " + e.getStackTrace().toString());
+            teacherListingResponse.setMessage("failed to save in database");
             teacherListingResponse.setTeacherListing(null);
             e.printStackTrace();
         }

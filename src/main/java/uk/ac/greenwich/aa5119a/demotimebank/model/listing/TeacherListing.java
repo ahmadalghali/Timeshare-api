@@ -23,6 +23,9 @@ public class TeacherListing {
 
 
 
+    public TeacherListing(){
+
+    }
 
     public TeacherListing(int subjectId, int userId, String title, String description, String imageId) {
         this.subjectId = subjectId;
