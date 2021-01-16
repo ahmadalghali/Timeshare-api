@@ -6,8 +6,11 @@ import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
 import uk.ac.greenwich.aa5119a.demotimebank.model.listing.Availability;
 import uk.ac.greenwich.aa5119a.demotimebank.model.listing.TeacherListing;
 import uk.ac.greenwich.aa5119a.demotimebank.model.listing.TeachingStyle;
+import uk.ac.greenwich.aa5119a.demotimebank.model.request.TeacherListingRequest;
 import uk.ac.greenwich.aa5119a.demotimebank.model.response.TeacherListingResponse;
+import uk.ac.greenwich.aa5119a.demotimebank.repository.AvailabilityRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.TeacherListingRepository;
+import uk.ac.greenwich.aa5119a.demotimebank.repository.TeachingStyleRepository;
 
 @Service
 public class TeacherListingService {
@@ -16,7 +19,13 @@ public class TeacherListingService {
     @Autowired
     private TeacherListingRepository teacherListingRepository;
 
-    public TeacherListingResponse addListing(TeacherListing teacherListing) {
+    @Autowired
+    private AvailabilityRepository availabilityRepository;
+
+    @Autowired
+    private TeachingStyleRepository teachingStyleRepository;
+
+    public TeacherListingResponse addListing(TeacherListingRequest listingRequest) {
 
         TeacherListingResponse teacherListingResponse = new TeacherListingResponse();
 
@@ -33,19 +42,39 @@ public class TeacherListingService {
 //            teacherListing.addAvailability(availability2);
 //            teacherListing.addTeachingStyle(style1);
 //
+            TeacherListing teacherListing = new TeacherListing(
+
+                    listingRequest.getSubjectId(),
+                    listingRequest.getUserId(),
+                    listingRequest.getTitle(),
+                    listingRequest.getDescription(),
+                    listingRequest.getImageId()
+            );
+
+            if(listingRequest.getAvailabilityIds().size() > 0){
+                for(int availabilityId : listingRequest.getAvailabilityIds()){
+                    teacherListing.addAvailability(availabilityRepository.findById(availabilityId).get());
+                }
+            }
 
 
-            TeacherListing dbListing = teacherListingRepository.save(teacherListing);
+            if(listingRequest.getTeachingStyleIds().size() > 0){
+                for(int styleId : listingRequest.getTeachingStyleIds()){
+                    teacherListing.addTeachingStyle(teachingStyleRepository.findById(styleId).get());
+                }
+            }
+
+
+            TeacherListing savedDBListing = teacherListingRepository.save(teacherListing);
 
 
             teacherListingResponse.setMessage("added");
 
-            teacherListingResponse.setTeacherListing(dbListing);
+            teacherListingResponse.setTeacherListing(savedDBListing);
 
         }catch (Exception e){
             teacherListingResponse.setMessage("failed to save in database");
-            teacherListingResponse.setTeacherListing(teacherListing);
-
+            teacherListingResponse.setTeacherListing(null);
         }
 
         return teacherListingResponse;

@@ -1,52 +1,30 @@
-package uk.ac.greenwich.aa5119a.demotimebank.model.listing;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-public class TeacherListing {
+package uk.ac.greenwich.aa5119a.demotimebank.model.request;
 
 
-    @Id
+import java.util.List;
+
+public class TeacherListingRequest {
+
+
     private int id;
     private int subjectId;
-    @Column("teacher_id")
     private int userId;
     private String title;
     private String description;
     private String imageId;
-    private Set<AvailabilityRef> availabilityIds = new HashSet<>();
-    private Set<TeachingStyleRef> teachingStyleIds = new HashSet<>();
+
+    private List<Integer> availabilityIds;
+    private List<Integer> teachingStyleIds;
 
 
-
-
-    public TeacherListing(int subjectId, int userId, String title, String description, String imageId) {
+    public TeacherListingRequest(int subjectId, int userId, String title, String description, String imageId, List<Integer> availabilityIds, List<Integer> teachingStyleIds) {
         this.subjectId = subjectId;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.imageId = imageId;
-    }
-
-
-    public void addAvailability(Availability availability){
-        this.availabilityIds.add(new AvailabilityRef(availability.getId()));
-    }
-    public void addTeachingStyle(TeachingStyle teachingStyle){
-        this.teachingStyleIds.add(new TeachingStyleRef(teachingStyle.getId()));
-    }
-
-
-    public Set<Integer> getAvailabilityIds(){
-        return this.availabilityIds.stream().map(AvailabilityRef::getAvailabilityId).collect(Collectors.toSet());
-    }
-
-    public Set<Integer> getTeachingStyleIds(){
-        return this.teachingStyleIds.stream().map(TeachingStyleRef::getTeachingStyleId).collect(Collectors.toSet());
+        this.availabilityIds = availabilityIds;
+        this.teachingStyleIds = teachingStyleIds;
     }
 
     public int getId() {
@@ -89,26 +67,39 @@ public class TeacherListing {
         this.description = description;
     }
 
-    public String getImage() {
+    public String getImageId() {
         return imageId;
     }
 
-    public void setImage(int image) {
+    public void setImageId(String imageId) {
         this.imageId = imageId;
     }
 
+    public List<Integer> getAvailabilityIds() {
+        return availabilityIds;
+    }
+
+    public void setAvailabilityIds(List<Integer> availabilityIds) {
+        this.availabilityIds = availabilityIds;
+    }
+
+    public List<Integer> getTeachingStyleIds() {
+        return teachingStyleIds;
+    }
+
+    public void setTeachingStyleIds(List<Integer> teachingStyleIds) {
+        this.teachingStyleIds = teachingStyleIds;
+    }
 
     @Override
     public String toString() {
-        return "TeacherListing{" +
+        return "TeacherListingRequest{" +
                 "id=" + id +
                 ", subjectId=" + subjectId +
                 ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", imageId='" + imageId + '\'' +
-                ", availabilityIds=" + availabilityIds +
-                ", teachingStyleIds=" + teachingStyleIds +
                 '}';
     }
 }
