@@ -1,5 +1,6 @@
 package uk.ac.greenwich.aa5119a.demotimebank.model.response;
 
+import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
 import uk.ac.greenwich.aa5119a.demotimebank.model.listing.TeacherListing;
 
@@ -11,13 +12,17 @@ public class TeacherListingResponse {
 
     private String message;
 
+    private Subject subject;
+
+
     public TeacherListingResponse() {
     }
 
-    public TeacherListingResponse(TeacherListing teacherListing, User user, String message) {
+    public TeacherListingResponse(TeacherListing teacherListing, User user, String message, Subject subject) {
         this.teacherListing = teacherListing;
         this.user = user;
         this.message = message;
+        this.subject = subject;
     }
 
     public User getUser() {
@@ -42,5 +47,13 @@ public class TeacherListingResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }

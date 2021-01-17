@@ -5,6 +5,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Table("teacher_listing_availability")
 public class AvailabilityRef {
+
     private int availabilityId;
 
     public AvailabilityRef(int availabilityId) {

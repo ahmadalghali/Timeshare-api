@@ -1,9 +1,15 @@
 package uk.ac.greenwich.aa5119a.demotimebank.model.listing;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
+import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
+import uk.ac.greenwich.aa5119a.demotimebank.model.User;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,11 +30,20 @@ public class TeacherListing {
     private Set<TeachingStyleRef> teachingStyleIds = new HashSet<>();
 
 
+    @Transient
+    private User user;
+    @Transient
+    private Subject subject;
+    @Transient
+    List<Availability> availabilities;
+    @Transient
+    List<TeachingStyle> teachingStyles;
 
     public TeacherListing(){
 
     }
 
+    @PersistenceConstructor
     public TeacherListing(int subjectId, int userId, String title, String description, String imageId, Double timeRate) {
         this.subjectId = subjectId;
         this.userId = userId;
@@ -36,6 +51,21 @@ public class TeacherListing {
         this.description = description;
         this.imageId = imageId;
         this.timeRate = timeRate;
+    }
+
+
+    // response entity
+    public TeacherListing(int id, Subject subject, User user, String title, String description, String imageId, Double timeRate, List<Availability> availabilities ,List<TeachingStyle> teachingStyles ) {
+
+        this.id =id ;
+        this.subject = subject;
+        this.user = user;
+        this.title = title;
+        this.description = description;
+        this.imageId = imageId;
+        this.timeRate = timeRate;
+        this.availabilities = availabilities;
+        this.teachingStyles = teachingStyles;
     }
 
 
@@ -109,6 +139,39 @@ public class TeacherListing {
 
     public void setTimeRate(Double timeRate) {
         this.timeRate = timeRate;
+    }
+
+
+    public List<Availability> getAvailabilities() {
+        return availabilities;
+    }
+
+    public void setAvailabilities(List<Availability> availabilities) {
+        this.availabilities = availabilities;
+    }
+
+    public List<TeachingStyle> getTeachingStyles() {
+        return teachingStyles;
+    }
+
+    public void setTeachingStyles(List<TeachingStyle> teachingStyles) {
+        this.teachingStyles = teachingStyles;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     @Override
