@@ -9,8 +9,10 @@ import uk.ac.greenwich.aa5119a.demotimebank.repository.AvailabilityRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.TeacherListingRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.TeachingStyleRepository;
 
+import java.util.List;
+
 @Service
-public class TeacherListingService {
+public class AcademyService {
 
 
     @Autowired
@@ -76,5 +78,11 @@ public class TeacherListingService {
         }
 
         return teacherListingResponse;
+    }
+
+
+
+    public List<TeacherListing> getClassesBySubject(int subjectId) {
+        return teacherListingRepository.findAllBySubjectId(subjectId);
     }
 }
