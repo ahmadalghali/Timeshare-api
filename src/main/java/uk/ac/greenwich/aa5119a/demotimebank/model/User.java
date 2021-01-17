@@ -8,13 +8,17 @@ public class User {
     private int id;
     private String email;
     private String password;
+    private String city;
+    private String profilePhotoUrl;
 
     protected User() {
     }
 
-    public User(String email, String password) {
+    public User(String email, String password, String city, String profilePhotoUrl) {
         this.email = email;
         this.password = password;
+        this.city = city;
+        this.profilePhotoUrl = profilePhotoUrl;
     }
 
     public String getEmail() {
@@ -39,5 +43,21 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProfilePhotoUrl() {
+        return profilePhotoUrl;
+    }
+
+    public void setProfilePhotoUrl(String profilePhotoUrl) {
+        this.profilePhotoUrl = profilePhotoUrl;
     }
 }

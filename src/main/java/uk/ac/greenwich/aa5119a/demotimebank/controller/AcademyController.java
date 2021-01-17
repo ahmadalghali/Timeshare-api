@@ -24,7 +24,7 @@ public class AcademyController {
 
 
     @GetMapping("learn/subject/{subjectId}")
-    public List<TeacherListing> getClassesBySubject(@PathVariable("subjectId") int subjectId){
+    public List<TeacherListingResponse> getClassesBySubject(@PathVariable("subjectId") int subjectId){
         return academyService.getClassesBySubject(subjectId);
     }
 }
