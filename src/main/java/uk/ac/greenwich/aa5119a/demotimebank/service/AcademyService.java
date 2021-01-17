@@ -91,6 +91,7 @@ public class AcademyService {
 
 
     public List<TeacherListingResponse> getClassesBySubject(int subjectId) {
+
         List<TeacherListing> listings = teacherListingRepository.findAllBySubjectId(subjectId);
 
         List<TeacherListingResponse> responses = new ArrayList<>();
