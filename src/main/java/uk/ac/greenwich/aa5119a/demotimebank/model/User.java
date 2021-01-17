@@ -1,6 +1,7 @@
 package uk.ac.greenwich.aa5119a.demotimebank.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
 public class User {
 
@@ -9,16 +10,17 @@ public class User {
     private String email;
     private String password;
     private String city;
-    private String profilePhotoUrl;
+    @Column("profile_image_url")
+    private String profileImageUrl;
 
     protected User() {
     }
 
-    public User(String email, String password, String city, String profilePhotoUrl) {
+    public User(String email, String password, String city, String profileImageUrl) {
         this.email = email;
         this.password = password;
         this.city = city;
-        this.profilePhotoUrl = profilePhotoUrl;
+        this.profileImageUrl = profileImageUrl;
     }
 
     public String getEmail() {
@@ -53,11 +55,11 @@ public class User {
         this.city = city;
     }
 
-    public String getProfilePhotoUrl() {
-        return profilePhotoUrl;
+    public String getProfileImageUrl() {
+        return profileImageUrl;
     }
 
-    public void setProfilePhotoUrl(String profilePhotoUrl) {
-        this.profilePhotoUrl = profilePhotoUrl;
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 }

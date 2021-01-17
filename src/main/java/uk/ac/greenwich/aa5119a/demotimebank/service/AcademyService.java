@@ -77,7 +77,7 @@ public class AcademyService {
 
             teacherListingResponse.setTeacherListing(savedDBListing);
 
-            teacherListingResponse.setUser(userRepository.findById(listingRequest.getUserId()).get());
+            teacherListingResponse.setUser(userRepository.findById(savedDBListing.getUserId()).get());
 
         }catch (Exception e){
             teacherListingResponse.setMessage("failed to save in database");
