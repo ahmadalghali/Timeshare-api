@@ -12,17 +12,19 @@ public class TeacherListingRequest {
     private String title;
     private String description;
     private String imageId;
+    private Double timeRate;
 
     private List<Integer> availabilityIds;
     private List<Integer> teachingStyleIds;
 
 
-    public TeacherListingRequest(int subjectId, int userId, String title, String description, String imageId, List<Integer> availabilityIds, List<Integer> teachingStyleIds) {
+    public TeacherListingRequest(int subjectId, int userId, String title, String description, String imageId, Double timeRate, List<Integer> availabilityIds, List<Integer> teachingStyleIds) {
         this.subjectId = subjectId;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.imageId = imageId;
+        this.timeRate = timeRate;
         this.availabilityIds = availabilityIds;
         this.teachingStyleIds = teachingStyleIds;
     }
@@ -71,6 +73,14 @@ public class TeacherListingRequest {
         return imageId;
     }
 
+    public Double getTimeRate() {
+        return timeRate;
+    }
+
+    public void setTimeRate(Double timeRate) {
+        this.timeRate = timeRate;
+    }
+
     public void setImageId(String imageId) {
         this.imageId = imageId;
     }
@@ -100,6 +110,9 @@ public class TeacherListingRequest {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", imageId='" + imageId + '\'' +
+                ", timeRate=" + timeRate +
+                ", availabilityIds=" + availabilityIds +
+                ", teachingStyleIds=" + teachingStyleIds +
                 '}';
     }
 }

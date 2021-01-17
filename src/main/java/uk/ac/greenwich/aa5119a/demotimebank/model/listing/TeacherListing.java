@@ -18,6 +18,8 @@ public class TeacherListing {
     private String title;
     private String description;
     private String imageId;
+    private Double timeRate;
+
     private Set<AvailabilityRef> availabilityIds = new HashSet<>();
     private Set<TeachingStyleRef> teachingStyleIds = new HashSet<>();
 
@@ -27,12 +29,13 @@ public class TeacherListing {
 
     }
 
-    public TeacherListing(int subjectId, int userId, String title, String description, String imageId) {
+    public TeacherListing(int subjectId, int userId, String title, String description, String imageId, Double timeRate) {
         this.subjectId = subjectId;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.imageId = imageId;
+        this.timeRate = timeRate;
     }
 
 
@@ -92,14 +95,21 @@ public class TeacherListing {
         this.description = description;
     }
 
-    public String getImage() {
+    public String getImageId() {
         return imageId;
     }
 
-    public void setImage(int image) {
+    public void setImageId(String imageId) {
         this.imageId = imageId;
     }
 
+    public Double getTimeRate() {
+        return timeRate;
+    }
+
+    public void setTimeRate(Double timeRate) {
+        this.timeRate = timeRate;
+    }
 
     @Override
     public String toString() {
@@ -110,6 +120,7 @@ public class TeacherListing {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", imageId='" + imageId + '\'' +
+                ", timeRate=" + timeRate +
                 ", availabilityIds=" + availabilityIds +
                 ", teachingStyleIds=" + teachingStyleIds +
                 '}';
