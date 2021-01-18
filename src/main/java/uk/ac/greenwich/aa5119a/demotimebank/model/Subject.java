@@ -5,14 +5,20 @@ import org.springframework.data.annotation.Id;
 public class Subject {
 
     @Id
-    private int subjectId;
+    private int id;
     private int icon;
     private String title;
+    private int categoryId;
 
 
-    public Subject(int icon, String title) {
+    protected Subject(){
+
+    }
+
+    public Subject(String title, int icon,  int categoryId) {
         this.icon = icon;
         this.title = title;
+        this.categoryId = categoryId;
     }
 
     public int getIcon() {
@@ -31,11 +37,19 @@ public class Subject {
         this.title = title;
     }
 
-    public int getSubjectId() {
-        return subjectId;
+    public int getId() {
+        return id;
     }
 
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }
