@@ -100,56 +100,21 @@ public class AcademyService {
 
         List<TeacherListing> listings = teacherListingRepository.findAllBySubjectId(subjectId);
 
-
-
-        List<TeacherListing> classes = new ArrayList<>();
-
-
         List<TeacherListingResponse> responses = new ArrayList<>();
-
 
 
         for(TeacherListing listing : listings){
 
             TeacherListingResponse response = new TeacherListingResponse();
-
-            int listingId = listing.getId();
             Subject subject = subjectRepository.findById(listing.getSubjectId()).get();
-            String title = listing.getTitle();
-            String description = listing.getDescription();
-            String imageId = listing.getImageId();
-            double timeRate = listing.getTimeRate();
             User user = userRepository.findById(listing.getUserId()).get();
 
 
-//            _class.setId(listing.getId());
-//            _class.setSubject(subjectRepository.findById(listing.getSubjectId()).get());
-//            _class.setTitle(listing.getTitle());
-//            _class.setImageId(listing.getImageId());
-//            _class.setTimeRate(listing.getTimeRate());
-//            _class.setUser(userRepository.findById(listing.getUserId()).get());
-
-
-            Iterable<Availability> source =  availabilityRepository.findAllById(listing.getAvailabilityIds());
-            List<Availability> availabilities = new ArrayList<>();
-            source.forEach(availabilities::add);
-
-            Iterable<TeachingStyle> source2 =  teachingStyleRepository.findAllById(listing.getTeachingStyleIds());
-            List<TeachingStyle> teachingStyles = new ArrayList<>();
-            source2.forEach(teachingStyles::add);
-
-
-
-//            _class.setAvailabilities(availabilities);
-//            _class.setTeachingStyles(teachingStyles);
-
-            TeacherListing _class = new TeacherListing(listingId, subject, user,title, description, imageId, timeRate, availabilities, teachingStyles);
-
-            classes.add(_class);
-
-//            response.setUser(userRepository.findById(listing.getUserId()).get());
+            response.setSubject(subject);
+            response.setUser(user);
             response.setTeacherListing(listing);
-//            response.setSubject(subjectRepository.findById(listing.getSubjectId()).get());
+//            response.setMessage("");
+
             responses.add(response);
         }
 

@@ -30,18 +30,19 @@ public class TeacherListing {
     private Set<TeachingStyleRef> teachingStyleIds = new HashSet<>();
 
 
-    @Transient
-    private User user;
-    @Transient
-    private Subject subject;
-    @Transient
-    List<Availability> availabilities;
-    @Transient
-    List<TeachingStyle> teachingStyles;
+//    @Transient
+//    private User user;
+//    @Transient
+//    private Subject subject;
+//    @Transient
+//    List<Availability> availabilities;
+//    @Transient
+//    List<TeachingStyle> teachingStyles;
 
     public TeacherListing(){
 
     }
+
 
     @PersistenceConstructor
     public TeacherListing(int subjectId, int userId, String title, String description, String imageId, Double timeRate) {
@@ -55,18 +56,18 @@ public class TeacherListing {
 
 
     // response entity
-    public TeacherListing(int id, Subject subject, User user, String title, String description, String imageId, Double timeRate, List<Availability> availabilities ,List<TeachingStyle> teachingStyles ) {
-
-        this.id =id ;
-        this.subject = subject;
-        this.user = user;
-        this.title = title;
-        this.description = description;
-        this.imageId = imageId;
-        this.timeRate = timeRate;
-        this.availabilities = availabilities;
-        this.teachingStyles = teachingStyles;
-    }
+//    public TeacherListing(int id, Subject subject, User user, String title, String description, String imageId, Double timeRate, List<Availability> availabilities ,List<TeachingStyle> teachingStyles ) {
+//
+//        this.id =id ;
+//        this.subject = subject;
+//        this.user = user;
+//        this.title = title;
+//        this.description = description;
+//        this.imageId = imageId;
+//        this.timeRate = timeRate;
+//        this.availabilities = availabilities;
+//        this.teachingStyles = teachingStyles;
+//    }
 
 
     public void addAvailability(Availability availability){
@@ -142,37 +143,37 @@ public class TeacherListing {
     }
 
 
-    public List<Availability> getAvailabilities() {
-        return availabilities;
-    }
-
-    public void setAvailabilities(List<Availability> availabilities) {
-        this.availabilities = availabilities;
-    }
-
-    public List<TeachingStyle> getTeachingStyles() {
-        return teachingStyles;
-    }
-
-    public void setTeachingStyles(List<TeachingStyle> teachingStyles) {
-        this.teachingStyles = teachingStyles;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
+//    public List<Availability> getAvailabilities() {
+//        return availabilities;
+//    }
+//
+//    public void setAvailabilities(List<Availability> availabilities) {
+//        this.availabilities = availabilities;
+//    }
+//
+//    public List<TeachingStyle> getTeachingStyles() {
+//        return teachingStyles;
+//    }
+//
+//    public void setTeachingStyles(List<TeachingStyle> teachingStyles) {
+//        this.teachingStyles = teachingStyles;
+//    }
+//
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+//
+//    public Subject getSubject() {
+//        return subject;
+//    }
+//
+//    public void setSubject(Subject subject) {
+//        this.subject = subject;
+//    }
 
     @Override
     public String toString() {

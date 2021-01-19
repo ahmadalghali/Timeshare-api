@@ -6,8 +6,8 @@ public class Subject {
 
     @Id
     private int id;
-    private int icon;
     private String title;
+    private int icon;
     private int categoryId;
 
 

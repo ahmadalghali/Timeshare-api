@@ -1,18 +1,20 @@
 package uk.ac.greenwich.aa5119a.demotimebank.model.response;
 
+import org.springframework.data.annotation.Transient;
 import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
+import uk.ac.greenwich.aa5119a.demotimebank.model.listing.Availability;
 import uk.ac.greenwich.aa5119a.demotimebank.model.listing.TeacherListing;
+import uk.ac.greenwich.aa5119a.demotimebank.model.listing.TeachingStyle;
+
+import java.util.List;
 
 public class TeacherListingResponse {
 
     private TeacherListing teacherListing;
-
-    private User user;
-
-    private String message;
-
     private Subject subject;
+    private User user;
+    private String message;
 
 
     public TeacherListingResponse() {
