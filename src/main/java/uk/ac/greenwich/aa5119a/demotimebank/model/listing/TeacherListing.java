@@ -18,7 +18,7 @@ public class TeacherListing {
     private int userId;
     private String title;
     private String description;
-    private String imageId;
+    private String qualificationImageUrl;
     private Double timeRate;
     private Set<AvailabilityRef> availabilityIds = new HashSet<>();
     private Set<TeachingStyleRef> teachingStyleIds = new HashSet<>();
@@ -31,12 +31,12 @@ public class TeacherListing {
 
 
     @PersistenceConstructor
-    public TeacherListing(int subjectId, int userId, String title, String description, String imageId, Double timeRate) {
+    public TeacherListing(int subjectId, int userId, String title, String description, String qualificationImageUrl, Double timeRate) {
         this.subjectId = subjectId;
         this.userId = userId;
         this.title = title;
         this.description = description;
-        this.imageId = imageId;
+        this.qualificationImageUrl = qualificationImageUrl;
         this.timeRate = timeRate;
     }
 
@@ -112,12 +112,12 @@ public class TeacherListing {
         this.description = description;
     }
 
-    public String getImageId() {
-        return imageId;
+    public String getQualificationImageUrl() {
+        return qualificationImageUrl;
     }
 
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
+    public void setQualificationImageUrl(String qualificationImageUrl) {
+        this.qualificationImageUrl = qualificationImageUrl;
     }
 
     public Double getTimeRate() {
@@ -169,7 +169,7 @@ public class TeacherListing {
                 ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", imageId='" + imageId + '\'' +
+                ", imageId='" + qualificationImageUrl + '\'' +
                 ", timeRate=" + timeRate +
                 ", availabilityIds=" + availabilityIds +
                 ", teachingStyleIds=" + teachingStyleIds +

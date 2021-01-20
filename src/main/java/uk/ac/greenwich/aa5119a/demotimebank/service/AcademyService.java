@@ -4,17 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
-import uk.ac.greenwich.aa5119a.demotimebank.model.listing.Availability;
 import uk.ac.greenwich.aa5119a.demotimebank.model.listing.TeacherListing;
-import uk.ac.greenwich.aa5119a.demotimebank.model.listing.TeachingStyle;
 import uk.ac.greenwich.aa5119a.demotimebank.model.request.TeacherListingRequest;
 import uk.ac.greenwich.aa5119a.demotimebank.model.response.TeacherListingResponse;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AcademyService {
@@ -41,24 +37,14 @@ public class AcademyService {
         TeacherListingResponse teacherListingResponse = new TeacherListingResponse();
 
         try{
-//
-//            Availability availability = new Availability("Weekends");
-//            Availability availability2 = new Availability("Weekdays");
-//            TeachingStyle style1 = new TeachingStyle("Online");
-//
-//
-//            TeacherListing teacherListing1 = new TeacherListing(1,141,"A Level Maths", "blah blah", "imagekey12345");
-//
-//            teacherListing.addAvailability(availability);
-//            teacherListing.addAvailability(availability2);
-//            teacherListing.addTeachingStyle(style1);
+
 //
             TeacherListing teacherListing = new TeacherListing(
                     listingRequest.getSubjectId(),
                     listingRequest.getUserId(),
                     listingRequest.getTitle(),
                     listingRequest.getDescription(),
-                    listingRequest.getImageId(),
+                    listingRequest.getQualificationImageUrl(),
                     listingRequest.getTimeRate()
                     );
 
