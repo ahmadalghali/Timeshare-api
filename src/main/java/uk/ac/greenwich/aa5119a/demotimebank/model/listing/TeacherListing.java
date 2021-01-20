@@ -2,14 +2,9 @@ package uk.ac.greenwich.aa5119a.demotimebank.model.listing;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
-import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
-import uk.ac.greenwich.aa5119a.demotimebank.model.User;
 
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,19 +20,10 @@ public class TeacherListing {
     private String description;
     private String imageId;
     private Double timeRate;
-
     private Set<AvailabilityRef> availabilityIds = new HashSet<>();
     private Set<TeachingStyleRef> teachingStyleIds = new HashSet<>();
 
 
-//    @Transient
-//    private User user;
-//    @Transient
-//    private Subject subject;
-//    @Transient
-//    List<Availability> availabilities;
-//    @Transient
-//    List<TeachingStyle> teachingStyles;
 
     public TeacherListing(){
 

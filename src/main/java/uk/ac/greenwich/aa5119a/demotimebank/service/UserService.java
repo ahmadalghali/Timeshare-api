@@ -3,16 +3,23 @@ package uk.ac.greenwich.aa5119a.demotimebank.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uk.ac.greenwich.aa5119a.demotimebank.model.Rating;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
+import uk.ac.greenwich.aa5119a.demotimebank.repository.RatingRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.UserRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.web.LoginResponse;
 import uk.ac.greenwich.aa5119a.demotimebank.web.RegisterResponse;
+
+import java.util.List;
 
 @Service
 public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RatingRepository ratingRepository;
 
     public RegisterResponse register(User user) {
 
@@ -36,7 +43,6 @@ public class UserService {
     }
 
 
-
     public LoginResponse login(User user) {
 
         User DBuser = userRepository.findByEmail(user.getEmail());
@@ -45,7 +51,7 @@ public class UserService {
 
         if (DBuser != null) {
 
-            if(DBuser.getPassword().equals(user.getPassword())){
+            if (DBuser.getPassword().equals(user.getPassword())) {
                 loginResponse.setUser(DBuser);
                 loginResponse.setMessage("logged in");
 
@@ -57,7 +63,7 @@ public class UserService {
 
             return loginResponse;
 
-        } else{
+        } else {
             user.setId(-1);
             loginResponse.setUser(user);
             loginResponse.setMessage("user does not exist");
@@ -86,4 +92,42 @@ public class UserService {
         userRepository.save(DBuser);
         return DBuser;
     }
+
+    public void rateUser(int userId, int rating) {
+
+//      add rating
+
+        Rating newRating = new Rating(rating, userId);
+        ratingRepository.save(newRating);
+
+
+//        updating user rating
+        List<Rating> userRatings = ratingRepository.findAllByUserId(userId);
+
+        User user = userRepository.findById(userId).get();
+
+        double updatedRating;
+
+        updatedRating = calculateAverageRating(userRatings);
+
+        user.setRatingScore(updatedRating);
+        user.setRatingCount(userRatings.size());
+
+        userRepository.save(user);
+
+    }
+
+    private double calculateAverageRating(List<Rating> ratings) {
+
+        int totalStars = 0;
+
+        for (Rating rating : ratings) {
+
+            totalStars += rating.getRating();
+        }
+
+        return totalStars / ratings.size();
+    }
 }
+
+

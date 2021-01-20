@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 //import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import uk.ac.greenwich.aa5119a.demotimebank.model.Rating;
 import uk.ac.greenwich.aa5119a.demotimebank.service.UserService;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
 import uk.ac.greenwich.aa5119a.demotimebank.web.LoginResponse;
@@ -45,6 +46,11 @@ public class UserController {
     @PutMapping("/logout")
     public User logout(@RequestBody User user) {
         return userService.logout(user);
+    }
+
+    @PostMapping("/rate/{userId}/{rating}")
+    public void rateUser(@PathVariable("userId") int userId, @PathVariable("rating") int rating){
+         userService.rateUser(userId, rating);
     }
 
 

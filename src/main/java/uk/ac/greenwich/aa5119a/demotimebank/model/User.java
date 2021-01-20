@@ -12,15 +12,20 @@ public class User {
     private String city;
     @Column("profile_image_url")
     private String profileImageUrl;
+    private double ratingScore;
+    private int ratingCount;
+
 
     protected User() {
     }
 
-    public User(String email, String password, String city, String profileImageUrl) {
+    public User(String email, String password, String city, String profileImageUrl, double ratingScore, int ratingCount) {
         this.email = email;
         this.password = password;
         this.city = city;
         this.profileImageUrl = profileImageUrl;
+        this.ratingScore = ratingScore;
+        this.ratingCount = ratingCount;
     }
 
     public String getEmail() {
@@ -61,5 +66,21 @@ public class User {
 
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public double getRatingScore() {
+        return ratingScore;
+    }
+
+    public void setRatingScore(double ratingScore) {
+        this.ratingScore = ratingScore;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
     }
 }
