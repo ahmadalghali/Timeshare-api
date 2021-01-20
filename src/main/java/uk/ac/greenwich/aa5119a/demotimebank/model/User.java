@@ -14,6 +14,7 @@ public class User {
     private String profileImageUrl;
     private double ratingScore;
     private int ratingCount;
+    private double timeCreditsCount;
 
 
     protected User() {
@@ -82,5 +83,13 @@ public class User {
 
     public void setRatingCount(int ratingCount) {
         this.ratingCount = ratingCount;
+    }
+
+    public double getTimeCreditsCount() {
+        return timeCreditsCount;
+    }
+
+    public void setTimeCreditsCount(double timeCreditsCount) {
+        this.timeCreditsCount = timeCreditsCount;
     }
 }
