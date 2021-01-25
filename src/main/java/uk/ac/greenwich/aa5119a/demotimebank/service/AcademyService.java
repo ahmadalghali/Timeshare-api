@@ -2,12 +2,17 @@ package uk.ac.greenwich.aa5119a.demotimebank.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uk.ac.greenwich.aa5119a.demotimebank.model.ClassBooking;
 import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
 import uk.ac.greenwich.aa5119a.demotimebank.model.listing.TeacherListing;
+import uk.ac.greenwich.aa5119a.demotimebank.model.notification.NotificationClassBooking;
+import uk.ac.greenwich.aa5119a.demotimebank.model.request.ClassBookingRequest;
 import uk.ac.greenwich.aa5119a.demotimebank.model.request.TeacherListingRequest;
 import uk.ac.greenwich.aa5119a.demotimebank.model.response.TeacherListingResponse;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.*;
+import uk.ac.greenwich.aa5119a.demotimebank.repository.notification.NotificationClassBookingRepository;
+import uk.ac.greenwich.aa5119a.demotimebank.repository.notification.NotificationClassConfirmationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +36,22 @@ public class AcademyService {
     @Autowired
     private SubjectRepository subjectRepository;
 
+    @Autowired
+    private ClassBookingRepository classBookingRepository;
+
+
+    @Autowired
+    private NotificationClassBookingRepository notificationClassBookingRepository;
+
+    @Autowired
+    private NotificationClassConfirmationRepository notificationClassConfirmationRepository;
+
 
     public TeacherListingResponse addListing(TeacherListingRequest listingRequest) {
 
         TeacherListingResponse teacherListingResponse = new TeacherListingResponse();
 
-        try{
+        try {
 
 //
             TeacherListing teacherListing = new TeacherListing(
@@ -46,19 +61,19 @@ public class AcademyService {
                     listingRequest.getDescription(),
                     listingRequest.getQualificationImageUrl(),
                     listingRequest.getTimeRate()
-                    );
+            );
 
 //            if(listingRequest.getAvailabilityIds().size() > 0){
-                for(int availabilityId : listingRequest.getAvailabilityIds()){
-                    teacherListing.addAvailability(availabilityRepository.findById(availabilityId).get());
-                }
+            for (int availabilityId : listingRequest.getAvailabilityIds()) {
+                teacherListing.addAvailability(availabilityRepository.findById(availabilityId).get());
+            }
 //            }
 
 
 //            if(listingRequest.getTeachingStyleIds().size() > 0){
-                for(int styleId : listingRequest.getTeachingStyleIds()){
-                    teacherListing.addTeachingStyle(teachingStyleRepository.findById(styleId).get());
-                }
+            for (int styleId : listingRequest.getTeachingStyleIds()) {
+                teacherListing.addTeachingStyle(teachingStyleRepository.findById(styleId).get());
+            }
 //            }
 
 
@@ -71,7 +86,7 @@ public class AcademyService {
 
             teacherListingResponse.setUser(userRepository.findById(savedDBListing.getUserId()).get());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             teacherListingResponse.setMessage("failed to save in database");
             teacherListingResponse.setTeacherListing(null);
             e.printStackTrace();
@@ -81,7 +96,6 @@ public class AcademyService {
     }
 
 
-
     public List<TeacherListingResponse> getClassesBySubject(int subjectId) {
 
         List<TeacherListing> listings = teacherListingRepository.findAllBySubjectId(subjectId);
@@ -89,7 +103,7 @@ public class AcademyService {
         List<TeacherListingResponse> responses = new ArrayList<>();
 
 
-        for(TeacherListing listing : listings){
+        for (TeacherListing listing : listings) {
 
             TeacherListingResponse response = new TeacherListingResponse();
             Subject subject = subjectRepository.findById(listing.getSubjectId()).get();
@@ -105,5 +119,34 @@ public class AcademyService {
         }
 
         return responses;
+    }
+
+
+    public boolean bookClass(ClassBookingRequest classBookingRequest) {
+
+        try {
+            ClassBooking classBooking = new ClassBooking(classBookingRequest.getClassId(), classBookingRequest.getStudentId(), classBookingRequest.isAccepted());
+            ClassBooking savedBooking = classBookingRepository.save(classBooking);
+
+            int teacherId = teacherListingRepository.findById(classBookingRequest.getClassId()).get().getUserId();
+            User student = userRepository.findById(classBookingRequest.getStudentId()).get();
+
+
+            NotificationClassBooking notification = new NotificationClassBooking(
+                    "Incoming class request",
+                    classBookingRequest.getStudentId(),
+                    teacherId,
+                    student.getProfileImageUrl(),
+                    savedBooking.getId()
+            );
+
+            notificationClassBookingRepository.save(notification);
+
+            return true;
+
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 }

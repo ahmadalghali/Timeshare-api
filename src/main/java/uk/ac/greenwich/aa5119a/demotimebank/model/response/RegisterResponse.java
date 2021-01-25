@@ -1,13 +1,12 @@
-package uk.ac.greenwich.aa5119a.demotimebank.web;
+package uk.ac.greenwich.aa5119a.demotimebank.model.response;
 
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
 
-public class LoginResponse {
-
+public class RegisterResponse {
     private User user;
     private String message;
 
-    public LoginResponse() {
+    public RegisterResponse() {
 
     }
 

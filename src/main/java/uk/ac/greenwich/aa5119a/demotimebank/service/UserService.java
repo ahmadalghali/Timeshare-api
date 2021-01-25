@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.ac.greenwich.aa5119a.demotimebank.model.Rating;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
+import uk.ac.greenwich.aa5119a.demotimebank.model.response.LoginResponse;
+import uk.ac.greenwich.aa5119a.demotimebank.model.response.RegisterResponse;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.RatingRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.UserRepository;
-import uk.ac.greenwich.aa5119a.demotimebank.web.LoginResponse;
-import uk.ac.greenwich.aa5119a.demotimebank.web.RegisterResponse;
 
 import java.util.List;
 
