@@ -10,6 +10,7 @@ public class User {
     private String email;
     private String password;
     private String city;
+    private String firstname;
     @Column("profile_image_url")
     private String profileImageUrl;
     private double ratingScore;
@@ -27,6 +28,14 @@ public class User {
         this.profileImageUrl = profileImageUrl;
         this.ratingScore = ratingScore;
         this.ratingCount = ratingCount;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getEmail() {

@@ -1,71 +1,123 @@
 package uk.ac.greenwich.aa5119a.demotimebank.model.notification;
 
-import org.springframework.data.annotation.Id;
+import uk.ac.greenwich.aa5119a.demotimebank.model.ClassBooking;
 
 public class NotificationClassBooking {
 
-    @Id
-    private int id;
-    private String message;
-    private int senderId;
-    private int receiverId;
-    private String senderProfileImageUrl;
-    private int classBookingId;
 
+    private String subjectTitle;
+    private int hours;
+    private double timeCreditPrice;
+    private String studentName;
+    private String studentProfileImage;
+    private String subjectIconUrl;
 
-    public NotificationClassBooking(String message, int senderId, int receiverId, String senderProfileImageUrl, int classBookingId) {
-        this.message = message;
-        this.senderId = senderId;
-        this.receiverId = receiverId;
-        this.senderProfileImageUrl = senderProfileImageUrl;
-        this.classBookingId = classBookingId;
+    private ClassBooking classBooking;
+
+    public NotificationClassBooking(String subjectTitle, int hours, double timeCreditPrice, String studentName, String studentProfileImage, String subjectIconUrl, ClassBooking classBooking) {
+        this.subjectTitle = subjectTitle;
+        this.hours = hours;
+        this.timeCreditPrice = timeCreditPrice;
+        this.studentName = studentName;
+        this.studentProfileImage = studentProfileImage;
+        this.subjectIconUrl = subjectIconUrl;
+        this.classBooking = classBooking;
     }
 
-    public int getId() {
-        return id;
+    public String getSubjectTitle() {
+        return subjectTitle;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSubjectTitle(String subjectTitle) {
+        this.subjectTitle = subjectTitle;
     }
 
-    public String getMessage() {
-        return message;
+    public int getHours() {
+        return hours;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setHours(int hours) {
+        this.hours = hours;
     }
 
-    public int getSenderId() {
-        return senderId;
+    public double getTimeCreditPrice() {
+        return timeCreditPrice;
     }
 
-    public void setSenderId(int senderId) {
-        this.senderId = senderId;
+    public void setTimeCreditPrice(double timeCreditPrice) {
+        this.timeCreditPrice = timeCreditPrice;
     }
 
-    public int getReceiverId() {
-        return receiverId;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setReceiverId(int receiverId) {
-        this.receiverId = receiverId;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public String getSenderProfileImageUrl() {
-        return senderProfileImageUrl;
+    public String getStudentProfileImage() {
+        return studentProfileImage;
     }
 
-    public void setSenderProfileImageUrl(String senderProfileImageUrl) {
-        this.senderProfileImageUrl = senderProfileImageUrl;
+    public void setStudentProfileImage(String studentProfileImage) {
+        this.studentProfileImage = studentProfileImage;
     }
 
-    public int getClassBookingId() {
-        return classBookingId;
+    public String getSubjectIconUrl() {
+        return subjectIconUrl;
     }
 
-    public void setClassBookingId(int classBookingId) {
-        this.classBookingId = classBookingId;
+    public void setSubjectIconUrl(String subjectIconUrl) {
+        this.subjectIconUrl = subjectIconUrl;
     }
+
+    public ClassBooking getClassBooking() {
+        return classBooking;
+    }
+
+    public void setClassBooking(ClassBooking classBooking) {
+        this.classBooking = classBooking;
+    }
+
+
+
+
+
+//    private User student;
+//    private User teacher;
+//    private ClassBooking classBooking;
+//
+//
+//    public NotificationClassBooking(User student, User teacher, ClassBooking classBooking) {
+//        this.student = student;
+//        this.teacher = teacher;
+//        this.classBooking = classBooking;
+//    }
+//
+//
+//
+//    public User getStudent() {
+//        return student;
+//    }
+//
+//    public void setStudent(User student) {
+//        this.student = student;
+//    }
+//
+//    public User getTeacher() {
+//        return teacher;
+//    }
+//
+//    public void setTeacher(User teacher) {
+//        this.teacher = teacher;
+//    }
+//
+//    public ClassBooking getClassBooking() {
+//        return classBooking;
+//    }
+//
+//    public void setClassBooking(ClassBooking classBooking) {
+//        this.classBooking = classBooking;
+//    }
 }

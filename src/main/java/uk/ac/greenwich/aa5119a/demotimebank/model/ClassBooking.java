@@ -1,7 +1,6 @@
 package uk.ac.greenwich.aa5119a.demotimebank.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.convert.ReadingConverter;
 
 public class ClassBooking {
 
@@ -10,12 +9,14 @@ public class ClassBooking {
     private int classId;
     private int studentId;
     private boolean isAccepted;
+    private int hours;
 
 
-    public ClassBooking(int classId, int studentId, boolean isAccepted) {
+    public ClassBooking(int classId, int studentId, boolean isAccepted, int hours) {
         this.classId = classId;
         this.studentId = studentId;
         this.isAccepted = isAccepted;
+        this.hours = hours;
     }
 
     public int getId() {
@@ -48,5 +49,13 @@ public class ClassBooking {
 
     public void setAccepted(boolean accepted) {
         isAccepted = accepted;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
     }
 }

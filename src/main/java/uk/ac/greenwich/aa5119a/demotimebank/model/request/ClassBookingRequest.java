@@ -6,6 +6,7 @@ public class ClassBookingRequest {
     private int studentId;
     private int classId;
     private boolean isAccepted;
+    private int hours;
 
 
     public int getStudentId() {
@@ -30,5 +31,13 @@ public class ClassBookingRequest {
 
     public void setAccepted(boolean accepted) {
         isAccepted = accepted;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
     }
 }

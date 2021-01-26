@@ -125,22 +125,13 @@ public class AcademyService {
     public boolean bookClass(ClassBookingRequest classBookingRequest) {
 
         try {
-            ClassBooking classBooking = new ClassBooking(classBookingRequest.getClassId(), classBookingRequest.getStudentId(), classBookingRequest.isAccepted());
-            ClassBooking savedBooking = classBookingRepository.save(classBooking);
 
-            int teacherId = teacherListingRepository.findById(classBookingRequest.getClassId()).get().getUserId();
-            User student = userRepository.findById(classBookingRequest.getStudentId()).get();
+            ClassBooking savedBooking = classBookingRepository.save(new ClassBooking(classBookingRequest.getClassId(), classBookingRequest.getStudentId(), classBookingRequest.isAccepted(), classBookingRequest.getHours()));
 
-
-            NotificationClassBooking notification = new NotificationClassBooking(
-                    "Incoming class request",
-                    classBookingRequest.getStudentId(),
-                    teacherId,
-                    student.getProfileImageUrl(),
-                    savedBooking.getId()
-            );
-
-            notificationClassBookingRepository.save(notification);
+//
+//            NotificationClassBooking notification = new NotificationClassBooking(savedBooking.getId());
+//
+//            notificationClassBookingRepository.save(notification);
 
             return true;
 

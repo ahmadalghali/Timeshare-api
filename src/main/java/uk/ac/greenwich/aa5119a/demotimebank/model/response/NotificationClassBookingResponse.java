@@ -8,6 +8,7 @@ import uk.ac.greenwich.aa5119a.demotimebank.model.notification.NotificationClass
 public class NotificationClassBookingResponse {
 
     private NotificationClassBooking notificationClassBooking;
+
     private User student;
     private User teacher;
     private ClassBooking classBooking;

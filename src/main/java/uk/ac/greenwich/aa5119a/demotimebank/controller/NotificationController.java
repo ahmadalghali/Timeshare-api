@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
+import uk.ac.greenwich.aa5119a.demotimebank.model.notification.Notification;
 import uk.ac.greenwich.aa5119a.demotimebank.model.notification.NotificationClassBooking;
 import uk.ac.greenwich.aa5119a.demotimebank.model.notification.NotificationClassConfirmation;
 import uk.ac.greenwich.aa5119a.demotimebank.model.request.NotificationClassBookingRequest;
@@ -45,9 +46,9 @@ public class NotificationController {
 
 
 
-    @GetMapping("notifications/{receiverId}")
-    public List<Object> getUserNotifications(@PathVariable("receiverId") int receiverId){
-        return notificationService.getUserNotifications(receiverId);
+    @GetMapping("notifications/{userId}")
+    public List<Notification> getUserNotifications(@PathVariable("userId") int userId){
+        return notificationService.getUserNotifications(userId);
     }
 
 

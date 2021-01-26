@@ -6,8 +6,8 @@ import uk.ac.greenwich.aa5119a.demotimebank.model.notification.Notification;
 
 import java.util.List;
 
-@Repository
+//@Repository
 public interface NotificationRepository extends CrudRepository<Notification, Integer> {
 
-    List<Notification> findAllByReceiverIdOrderByIdDesc(int receiverId);
+//    List<Notification> findAllByReceiverIdOrderByIdDesc(int receiverId);
 }

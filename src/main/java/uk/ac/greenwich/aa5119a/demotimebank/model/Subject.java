@@ -7,7 +7,7 @@ public class Subject {
     @Id
     private int id;
     private String title;
-    private int icon;
+    private String iconUrl;
     private int categoryId;
 
 
@@ -15,18 +15,18 @@ public class Subject {
 
     }
 
-    public Subject(String title, int icon,  int categoryId) {
-        this.icon = icon;
+    public Subject(String title, String iconUrl, int categoryId) {
+        this.iconUrl = iconUrl;
         this.title = title;
         this.categoryId = categoryId;
     }
 
-    public int getIcon() {
-        return icon;
+    public String getIconUrl() {
+        return iconUrl;
     }
 
-    public void setIcon(int icon) {
-        this.icon = icon;
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
     public String getTitle() {
