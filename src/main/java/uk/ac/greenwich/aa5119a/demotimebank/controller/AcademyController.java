@@ -36,9 +36,9 @@ public class AcademyController {
         return academyService.bookClass(classBookingRequest);
     }
 
-    @GetMapping("class/{classId}/isRequestedBy/user/{userId}")
-    public Boolean isClassRequestedByUser(@PathVariable("classId") int classId, @PathVariable("userId") int userId){
+    @GetMapping("class/{classId}/isRequestedBy/user/{studentId}")
+    public Boolean isClassRequestedByUser(@PathVariable("classId") int classId, @PathVariable("studentId") int studentId){
 
-        return academyService.isClassRequestedByUser(classId, userId);
+        return academyService.isClassRequestedByUser(classId, studentId);
     }
 }
