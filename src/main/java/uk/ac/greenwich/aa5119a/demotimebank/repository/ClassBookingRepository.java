@@ -16,6 +16,6 @@ public interface ClassBookingRepository extends CrudRepository<ClassBooking, Int
             " WHERE class.teacher_id = :teacherId")
     List<ClassBooking> findAllByTeacherId(@Param("teacherId") int teacherId);
 
-    @Query("SELECT * FROM class_booking cb WHERE cb.class_id = :classId AND cb.student_id = :studentId")
-    ClassBooking isClassRequestedByUser(@Param("classId") int classId, @Param("studentId") int studentId);
+    @Query("SELECT COUNT(cb.id) FROM class_booking cb WHERE cb.class_id = 281 AND cb.student_id = 1")
+    int isClassRequestedByUser(@Param("classId") int classId, @Param("studentId") int studentId);
 }

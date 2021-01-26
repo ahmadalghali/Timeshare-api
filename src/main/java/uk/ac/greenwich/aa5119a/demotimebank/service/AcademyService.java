@@ -138,7 +138,9 @@ public class AcademyService {
 
     public Boolean isClassRequestedByUser(int classId, int studentId) {
 
-        return classBookingRepository.isClassRequestedByUser(classId, studentId) != null;
+//        ClassBooking booking = classBookingRepository.isClassRequestedByUser(classId, studentId);
+
+        return  classBookingRepository.isClassRequestedByUser(classId, studentId) > 0;
 
     }
 }
