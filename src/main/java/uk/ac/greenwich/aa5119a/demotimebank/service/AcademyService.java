@@ -135,4 +135,10 @@ public class AcademyService {
 
         }
     }
+
+    public Boolean isClassRequestedByUser(int classId, int studentId) {
+
+        return classBookingRepository.isClassRequestedByUser(classId, studentId) != null;
+
+    }
 }
