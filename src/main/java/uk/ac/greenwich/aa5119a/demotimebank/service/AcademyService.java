@@ -122,22 +122,17 @@ public class AcademyService {
     }
 
 
-    public boolean bookClass(ClassBookingRequest classBookingRequest) {
+    public Boolean bookClass(ClassBookingRequest classBookingRequest) {
 
         try {
 
-            ClassBooking savedBooking = classBookingRepository.save(new ClassBooking(classBookingRequest.getClassId(), classBookingRequest.getStudentId(), classBookingRequest.isAccepted(), classBookingRequest.getHours()));
-
-//
-//            NotificationClassBooking notification = new NotificationClassBooking(savedBooking.getId());
-//
-//            notificationClassBookingRepository.save(notification);
+            classBookingRepository.save(new ClassBooking(classBookingRequest.getClassId(), classBookingRequest.getStudentId(), classBookingRequest.isAccepted(), classBookingRequest.getHours()));
 
             return true;
 
         } catch (Exception e) {
+            return false;
 
         }
-        return false;
     }
 }

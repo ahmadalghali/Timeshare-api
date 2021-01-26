@@ -31,7 +31,7 @@ public class AcademyController {
 
 
     @PostMapping("book/class")
-    public boolean bookClass(@RequestBody ClassBookingRequest classBookingRequest){
+    public Boolean bookClass(@RequestBody ClassBookingRequest classBookingRequest){
 
         return academyService.bookClass(classBookingRequest);
     }
