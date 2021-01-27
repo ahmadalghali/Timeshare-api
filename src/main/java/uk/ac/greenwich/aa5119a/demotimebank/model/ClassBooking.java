@@ -10,13 +10,14 @@ public class ClassBooking {
     private int studentId;
     private boolean isAccepted;
     private int hours;
+    private long classDate;
 
-
-    public ClassBooking(int classId, int studentId, boolean isAccepted, int hours) {
+    public ClassBooking(int classId, int studentId, boolean isAccepted, int hours, long classDate) {
         this.classId = classId;
         this.studentId = studentId;
         this.isAccepted = isAccepted;
         this.hours = hours;
+        this.classDate = classDate;
     }
 
     public int getId() {
@@ -57,5 +58,13 @@ public class ClassBooking {
 
     public void setHours(int hours) {
         this.hours = hours;
+    }
+
+    public long getClassDate() {
+        return classDate;
+    }
+
+    public void setClassDate(long classDate) {
+        this.classDate = classDate;
     }
 }

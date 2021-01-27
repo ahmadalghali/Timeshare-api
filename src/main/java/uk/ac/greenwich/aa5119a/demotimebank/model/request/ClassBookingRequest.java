@@ -7,6 +7,7 @@ public class ClassBookingRequest {
     private int classId;
     private boolean isAccepted;
     private int hours;
+    private long classDate;
 
 
     public int getStudentId() {
@@ -39,5 +40,13 @@ public class ClassBookingRequest {
 
     public void setHours(int hours) {
         this.hours = hours;
+    }
+
+    public long getClassDate() {
+        return classDate;
+    }
+
+    public void setClassDate(long classDate) {
+        this.classDate = classDate;
     }
 }

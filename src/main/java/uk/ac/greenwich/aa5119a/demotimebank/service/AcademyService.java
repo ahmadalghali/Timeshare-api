@@ -126,7 +126,7 @@ public class AcademyService {
 
         try {
 
-            classBookingRepository.save(new ClassBooking(classBookingRequest.getClassId(), classBookingRequest.getStudentId(), classBookingRequest.isAccepted(), classBookingRequest.getHours()));
+            classBookingRepository.save(new ClassBooking(classBookingRequest.getClassId(), classBookingRequest.getStudentId(), classBookingRequest.isAccepted(), classBookingRequest.getHours(), classBookingRequest.getClassDate()));
 
             return true;
 
