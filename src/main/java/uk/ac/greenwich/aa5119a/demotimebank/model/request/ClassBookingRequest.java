@@ -3,8 +3,8 @@ package uk.ac.greenwich.aa5119a.demotimebank.model.request;
 
 public class ClassBookingRequest {
 
-    private int studentId;
     private int classId;
+    private int studentId;
     private boolean isAccepted;
     private int hours;
     private long classDate;

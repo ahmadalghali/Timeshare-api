@@ -124,16 +124,16 @@ public class AcademyService {
 
     public Boolean bookClass(ClassBookingRequest classBookingRequest) {
 
-        try {
+//        try {
 
             classBookingRepository.save(new ClassBooking(classBookingRequest.getClassId(), classBookingRequest.getStudentId(), classBookingRequest.isAccepted(), classBookingRequest.getHours(), classBookingRequest.getClassDate()));
 
             return true;
 
-        } catch (Exception e) {
-            return false;
-
-        }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
     }
 
     public Boolean isClassRequestedByUser(int classId, int studentId) {
