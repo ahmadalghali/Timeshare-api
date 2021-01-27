@@ -26,8 +26,7 @@ import java.util.List;
 @Service
 public class NotificationService {
 
-//    @Autowired
-//    private NotificationRepository notificationRepository;
+
 
     @Autowired
     private NotificationClassBookingRepository notificationClassBookingRepository;
@@ -47,6 +46,11 @@ public class NotificationService {
     @Autowired
     SubjectRepository subjectRepository;
 
+
+
+
+
+
     public List<Notification> getUserNotifications(int userId) {
 
         List<Notification> allUserNotifications = new ArrayList<>();
@@ -54,10 +58,45 @@ public class NotificationService {
         List<ClassBooking> receivedClassRequests = classBookingRepository.findAllByTeacherId(userId);
 
 
+        List<ClassBooking> acceptedClassBookings = classBookingRepository.findAllByStudentIdAndAcceptedIsTrue(userId);
+
         allUserNotifications.addAll(getClassBookingNotifications(receivedClassRequests));
+        allUserNotifications.addAll(getClassConfirmedNotifications(acceptedClassBookings));
+
 
         return allUserNotifications;
 
+    }
+
+
+    private List<Notification> getClassConfirmedNotifications(List<ClassBooking> acceptedClassBookings) {
+
+        List<NotificationClassConfirmation> notificationClassConfirmationList = new ArrayList<>();
+
+        for (ClassBooking acceptedBooking : acceptedClassBookings) {
+
+            TeacherListing _class = teacherListingRepository.findById(acceptedBooking.getClassId()).get();
+//            User student = userRepository.findById(request.getStudentId()).get();
+            User teacher = userRepository.findById(teacherListingRepository.findById(acceptedBooking.getClassId()).get().getUserId()).get();
+
+            Subject subject = subjectRepository.findById(_class.getSubjectId()).get();
+            String subjectTitle = subject.getTitle();
+            String subjectIconUrl = subject.getIconUrl();
+
+            String teacherName = teacher.getFirstname();
+            String teacherProfileImage = teacher.getProfileImageUrl();
+
+
+            notificationClassConfirmationList.add(new NotificationClassConfirmation(subjectTitle, teacherName,teacherProfileImage ,subjectIconUrl , acceptedBooking.getClassDate(), acceptedBooking.getClassId()));
+        }
+
+        List<Notification> notifications = new ArrayList<>();
+
+        for (NotificationClassConfirmation notificationClassConfirmation : notificationClassConfirmationList) {
+            notifications.add(new Notification(3, notificationClassConfirmation));
+        }
+
+        return notifications;
     }
 
 
@@ -94,74 +133,6 @@ public class NotificationService {
     }
 
 
-//    public void createNotification(NotificationClassBookingRequest notificationRequest) {
-//
-//        ClassBooking classBooking = new ClassBooking(notificationRequest.getClassId(), notificationRequest.getSenderId(), false);
-//        ClassBooking savedClassBooking = classBookingRepository.save(classBooking);
-//
-//
-//        NotificationClassBooking notification = new NotificationClassBooking(
-//                notificationRequest.getMessage(),
-//                notificationRequest.getSenderId(),
-//                notificationRequest.getReceiverId(),
-//                userRepository.findById(notificationRequest.getSenderId()).get().getProfileImageUrl(),
-//                savedClassBooking.getId()
-//        );
-//
-//        notificationClassBookingRepository.save(notification);
-//    }
-//
-//    public void createNotification(NotificationClassConfirmationRequest notificationRequest) {
-//
-//
-//        NotificationClassConfirmation notification = new NotificationClassConfirmation(
-//                notificationRequest.getMessage(),
-//                notificationRequest.getSenderId(),
-//                notificationRequest.getReceiverId(),
-//                userRepository.findById(notificationRequest.getSenderId()).get().getProfileImageUrl(),
-//                notificationRequest.getClassId()
-//        );
-//
-//        notificationClassConfirmationRepository.save(notification);
-//
-//
-//
-//    }
-
-
-    public NotificationClassBooking createNotification(NotificationClassBookingRequest notificationRequest) {
-
-//        ClassBooking classBooking = new ClassBooking(notificationRequest.getClassId(), notificationRequest.getSenderId(), false, hours);
-//        ClassBooking savedClassBooking = classBookingRepository.save(classBooking);
-//
-//
-//        NotificationClassBooking notification = new NotificationClassBooking(
-//                notificationRequest.getMessage(),
-//                notificationRequest.getSenderId(),
-//                notificationRequest.getReceiverId(),
-//                userRepository.findById(notificationRequest.getSenderId()).get().getProfileImageUrl(),
-//                savedClassBooking.getId()
-//        );
-//
-//        return notificationClassBookingRepository.save(notification);
-        return null;
-    }
-
-
-    public NotificationClassConfirmation createNotification(NotificationClassConfirmationRequest notificationRequest) {
-
-
-        NotificationClassConfirmation notification = new NotificationClassConfirmation(
-                notificationRequest.getMessage(),
-                notificationRequest.getSenderId(),
-                notificationRequest.getReceiverId(),
-                userRepository.findById(notificationRequest.getSenderId()).get().getProfileImageUrl(),
-                notificationRequest.getClassId()
-        );
-
-        return notificationClassConfirmationRepository.save(notification);
-    }
-
 
     public void setClassBookingAccepted(int classBookingId, boolean isAccepted) {
 
@@ -174,15 +145,9 @@ public class NotificationService {
             TeacherListing _class = teacherListingRepository.findById(classBooking.getClassId()).get();
             User teacher = userRepository.findById(_class.getUserId()).get();
 
-            NotificationClassConfirmation notificationClassConfirmation =
-                    new NotificationClassConfirmation("Class confirmed",
-                            teacher.getId(),
-                            classBooking.getStudentId(),
-                            teacher.getProfileImageUrl(),
-                            classBooking.getClassId()
-                    );
 
-            notificationClassConfirmationRepository.save(notificationClassConfirmation);
+
+//            notificationClassConfirmationRepository.save(notificationClassConfirmation);
 
         } else {
             classBookingRepository.deleteById(classBookingId);
