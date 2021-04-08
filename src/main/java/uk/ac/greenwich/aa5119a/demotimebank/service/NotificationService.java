@@ -3,6 +3,7 @@ package uk.ac.greenwich.aa5119a.demotimebank.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.ac.greenwich.aa5119a.demotimebank.model.ClassBooking;
+import uk.ac.greenwich.aa5119a.demotimebank.model.Lesson;
 import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
 import uk.ac.greenwich.aa5119a.demotimebank.model.User;
 import uk.ac.greenwich.aa5119a.demotimebank.model.listing.TeacherListing;
@@ -46,6 +47,9 @@ public class NotificationService {
     @Autowired
     SubjectRepository subjectRepository;
 
+    @Autowired
+    LessonService lessonService;
+
 
 
 
@@ -87,7 +91,7 @@ public class NotificationService {
             String teacherProfileImage = teacher.getProfileImageUrl();
 
 
-            notificationClassConfirmationList.add(new NotificationClassConfirmation(subjectTitle, teacherName,teacherProfileImage ,subjectIconUrl , acceptedBooking.getClassDate(), acceptedBooking.getClassId()));
+            notificationClassConfirmationList.add(new NotificationClassConfirmation(acceptedBooking.getId(), subjectTitle, teacherName,teacherProfileImage ,subjectIconUrl , acceptedBooking.getClassDate(), acceptedBooking.getClassId()));
         }
 
         List<Notification> notifications = new ArrayList<>();
@@ -142,8 +146,12 @@ public class NotificationService {
             classBooking.setAccepted(true);
             classBookingRepository.save(classBooking);
 
-            TeacherListing _class = teacherListingRepository.findById(classBooking.getClassId()).get();
-            User teacher = userRepository.findById(_class.getUserId()).get();
+
+            lessonService.createLesson(classBooking);
+
+
+//            TeacherListing _class = teacherListingRepository.findById(classBooking.getClassId()).get();
+//            User teacher = userRepository.findById(_class.getUserId()).get();
 
 
 
@@ -153,5 +161,9 @@ public class NotificationService {
             classBookingRepository.deleteById(classBookingId);
         }
 
+    }
+
+    public void deleteNotification(int classBookingId) {
+        classBookingRepository.deleteById(classBookingId);
     }
 }

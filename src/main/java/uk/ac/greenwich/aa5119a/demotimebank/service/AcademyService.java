@@ -143,4 +143,6 @@ public class AcademyService {
         return  classBookingRepository.isClassRequestedByUser(classId, studentId) > 0;
 
     }
+
+
 }

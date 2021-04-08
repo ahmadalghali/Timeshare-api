@@ -41,4 +41,6 @@ public class AcademyController {
 
         return academyService.isClassRequestedByUser(classId, studentId);
     }
+
+
 }

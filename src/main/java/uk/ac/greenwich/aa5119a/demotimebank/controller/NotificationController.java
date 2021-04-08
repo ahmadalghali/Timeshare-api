@@ -56,6 +56,12 @@ public class NotificationController {
     @PutMapping("class_booking/{classBookingId}/isAccepted={isAccepted}")
     public void setClassBookingAccepted(@PathVariable("classBookingId") int classBookingId,@PathVariable("isAccepted") boolean isAccepted ){
         notificationService.setClassBookingAccepted(classBookingId, isAccepted);
+
+    }
+
+    @DeleteMapping("notifications/{classBookingId}")
+    public void deleteNotification(@PathVariable("classBookingId") int notificationId){
+        notificationService.deleteNotification(notificationId);
     }
 
 
