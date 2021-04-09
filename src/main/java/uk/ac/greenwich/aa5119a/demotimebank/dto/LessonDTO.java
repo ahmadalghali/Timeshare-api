@@ -3,10 +3,11 @@ package uk.ac.greenwich.aa5119a.demotimebank.dto;
 import org.springframework.data.annotation.Id;
 import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
 
+import java.sql.Date;
+
 public class LessonDTO {
 
 
-    @Id
     private int id;
     private int classListingId;
     private int studentId;
@@ -14,7 +15,7 @@ public class LessonDTO {
     private String teacherFirstName;
     private int hours;
     private double lessonPrice;
-    private long lessonDate;
+    private Date lessonDate;
     private boolean isAttended;
 
     private String studentImage;
@@ -24,7 +25,7 @@ public class LessonDTO {
     private String subjectTitle;
     private String subjectIconUrl;
 
-    private String  status;
+    private String status;
 
     public int getId() {
         return id;
@@ -58,11 +59,12 @@ public class LessonDTO {
         this.hours = hours;
     }
 
-    public long getLessonDate() {
+
+    public Date getLessonDate() {
         return lessonDate;
     }
 
-    public void setLessonDate(long lessonDate) {
+    public void setLessonDate(Date lessonDate) {
         this.lessonDate = lessonDate;
     }
 

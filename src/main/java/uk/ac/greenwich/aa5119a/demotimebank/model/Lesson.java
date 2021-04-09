@@ -2,6 +2,9 @@ package uk.ac.greenwich.aa5119a.demotimebank.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
 public class Lesson {
 
     @Id
@@ -9,11 +12,11 @@ public class Lesson {
     private int classListingId;
     private int studentId;
     private int hours;
-    private long lessonDate;
+    private Date lessonDate;
     private Boolean isAttended;
     private String status;
 
-    public Lesson(int classListingId, int studentId, int hours, long lessonDate, Boolean isAttended, String status) {
+    public Lesson(int classListingId, int studentId, int hours, Date lessonDate, Boolean isAttended, String status) {
         this.classListingId = classListingId;
         this.studentId = studentId;
         this.hours = hours;
@@ -54,11 +57,11 @@ public class Lesson {
         this.hours = hours;
     }
 
-    public long getLessonDate() {
+    public Date getLessonDate() {
         return lessonDate;
     }
 
-    public void setLessonDate(long lessonDate) {
+    public void setLessonDate(Date lessonDate) {
         this.lessonDate = lessonDate;
     }
 

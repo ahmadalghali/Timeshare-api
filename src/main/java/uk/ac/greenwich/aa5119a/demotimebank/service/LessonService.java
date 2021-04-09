@@ -15,6 +15,9 @@ import uk.ac.greenwich.aa5119a.demotimebank.repository.SubjectRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.TeacherListingRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.UserRepository;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,14 +45,19 @@ public class LessonService {
         return lessonRepository.getUserLessonCount(userId);
     }
 
+    public int getUserTeachingLessonCount(int userId) {
+        return lessonRepository.getUserTeachingLessonCount(userId);
+    }
+
+
     public void createLesson(ClassBooking classBooking) {
-        Lesson lesson = new Lesson(classBooking.getClassId(), classBooking.getStudentId(), classBooking.getHours(), classBooking.getClassDate(), false, "Not Started");
+        Lesson lesson = new Lesson(classBooking.getClassId(), classBooking.getStudentId(), classBooking.getHours(), new Date(classBooking.getClassDate()), false, "Not Started");
         lessonRepository.save(lesson);
 
     }
 
     private LessonDTO convertToLessonDTO(Lesson lesson) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+//        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         LessonDTO lessonDTO = modelMapper.map(lesson, LessonDTO.class);
 
         TeacherListing teacherListing = teacherListingRepository.findById(lesson.getClassListingId()).get();
@@ -67,6 +75,9 @@ public class LessonService {
         Subject subject = subjectRepository.findById(teacherListing.getSubjectId()).get();
         lessonDTO.setSubjectTitle(subject.getTitle());
         lessonDTO.setSubjectIconUrl(subject.getIconUrl());
+
+
+
         return lessonDTO;
     }
 
@@ -85,5 +96,15 @@ public class LessonService {
         List<Lesson> lessons = lessonRepository.getUserLessons(userId);
 
         return convertListToLessonْDTO(lessons);
+    }
+
+    public List<LessonDTO> getUserTeachingLessons(int userId) {
+        List<Lesson> lessons = lessonRepository.getUserTeachingLessons(userId);
+
+        return convertListToLessonْDTO(lessons);
+    }
+
+    public LessonDTO getLesson(int lessonId) {
+        return convertToLessonDTO(lessonRepository.findById(lessonId).get());
     }
 }

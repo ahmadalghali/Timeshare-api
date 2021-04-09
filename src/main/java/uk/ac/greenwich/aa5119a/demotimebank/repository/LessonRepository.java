@@ -14,6 +14,18 @@ public interface LessonRepository extends CrudRepository<Lesson,  Integer> {
     @Query("SELECT COUNT(id) FROM lesson WHERE student_id = :userId")
     int getUserLessonCount(int userId);
 
+    @Query("SELECT COUNT(l.id) FROM lesson l \n" +
+            "JOIN teacher_listing tl on  tl.id= l.class_listing_id\n" +
+            "WHERE tl.teacher_id = :userId")
+    int getUserTeachingLessonCount(int userId);
+
     @Query("SELECT * FROM lesson WHERE student_id = :userId")
     public List<Lesson> getUserLessons(int userId);
+
+    @Query("SELECT l.* FROM lesson l \n" +
+            "JOIN teacher_listing tl on  tl.id= l.class_listing_id\n" +
+            "WHERE tl.teacher_id = :userId")
+    List<Lesson> getUserTeachingLessons(int userId);
+
+
 }

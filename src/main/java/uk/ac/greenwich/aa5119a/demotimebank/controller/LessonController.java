@@ -23,8 +23,25 @@ public class LessonController {
         return lessonService.getUserLessonCount(userId);
     }
 
+
+    @GetMapping("account/teachingLessonCount")
+    public int getUserTeachingLessonCount(@RequestParam() int userId){
+        return lessonService.getUserTeachingLessonCount(userId);
+    }
+
     @GetMapping("lessons/{userId}")
     public List<LessonDTO> getUserLessons(@PathVariable("userId") int userId){
         return lessonService.getUserLessons(userId);
     }
+
+    @GetMapping("lesson/{lessonId}")
+    public LessonDTO getLesson(@PathVariable("lessonId") int lessonId){
+        return lessonService.getLesson(lessonId);
+    }
+
+    @GetMapping("lessons/teach/{userId}")
+    public List<LessonDTO> getUserTeachingLessons(@PathVariable("userId") int userId){
+        return lessonService.getUserTeachingLessons(userId);
+    }
+
 }
