@@ -8,11 +8,13 @@ public class Rating {
     private int id;
     private int rating;
     private int userId;
+    private String comments;
 
 
-    public Rating(int rating, int userId) {
+    public Rating(int rating, int userId, String comments) {
         this.rating = rating;
         this.userId = userId;
+        this.comments = comments;
     }
 
     public int getId() {
@@ -37,5 +39,13 @@ public class Rating {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 }

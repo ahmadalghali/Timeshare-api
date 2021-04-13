@@ -1,9 +1,6 @@
 package uk.ac.greenwich.aa5119a.demotimebank.dto;
 
-import org.springframework.data.annotation.Id;
-import uk.ac.greenwich.aa5119a.demotimebank.model.Subject;
-
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class LessonDTO {
 
@@ -15,7 +12,7 @@ public class LessonDTO {
     private String teacherFirstName;
     private int hours;
     private double lessonPrice;
-    private Date lessonDate;
+    private LocalDate lessonDate;
     private boolean isAttended;
 
     private String studentImage;
@@ -25,7 +22,17 @@ public class LessonDTO {
     private String subjectTitle;
     private String subjectIconUrl;
 
+    private Boolean teacherHasJoined;
+    private Boolean studentHasJoined;
     private String status;
+    private long timeLeft;
+
+    private Boolean studentHasLeft;
+    private Boolean teacherHasLeft;
+
+    private long timeStarted;
+
+
 
     public int getId() {
         return id;
@@ -60,11 +67,11 @@ public class LessonDTO {
     }
 
 
-    public Date getLessonDate() {
+    public LocalDate getLessonDate() {
         return lessonDate;
     }
 
-    public void setLessonDate(Date lessonDate) {
+    public void setLessonDate(LocalDate lessonDate) {
         this.lessonDate = lessonDate;
     }
 
@@ -147,5 +154,55 @@ public class LessonDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    public Boolean getTeacherHasJoined() {
+        return teacherHasJoined;
+    }
+
+    public void setTeacherHasJoined(Boolean teacherHasJoined) {
+        this.teacherHasJoined = teacherHasJoined;
+    }
+
+    public Boolean getStudentHasJoined() {
+        return studentHasJoined;
+    }
+
+    public void setStudentHasJoined(Boolean studentHasJoined) {
+        this.studentHasJoined = studentHasJoined;
+    }
+
+    public long getTimeLeft() {
+        return timeLeft;
+    }
+
+    public void setTimeLeft(long timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
+    public Boolean getStudentHasLeft() {
+        return studentHasLeft;
+    }
+
+    public void setStudentHasLeft(Boolean studentHasLeft) {
+        this.studentHasLeft = studentHasLeft;
+    }
+
+    public Boolean getTeacherHasLeft() {
+        return teacherHasLeft;
+    }
+
+    public void setTeacherHasLeft(Boolean teacherHasLeft) {
+        this.teacherHasLeft = teacherHasLeft;
+    }
+
+
+    public long getTimeStarted() {
+        return timeStarted;
+    }
+
+    public void setTimeStarted(long timeStarted) {
+        this.timeStarted = timeStarted;
     }
 }

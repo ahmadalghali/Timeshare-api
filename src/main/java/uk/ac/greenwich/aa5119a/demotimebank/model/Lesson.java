@@ -2,8 +2,7 @@ package uk.ac.greenwich.aa5119a.demotimebank.model;
 
 import org.springframework.data.annotation.Id;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Lesson {
 
@@ -12,18 +11,34 @@ public class Lesson {
     private int classListingId;
     private int studentId;
     private int hours;
-    private Date lessonDate;
-    private Boolean isAttended;
+    private LocalDate lessonDate;
+    //    private Boolean isAttended;
+    private Boolean teacherHasJoined;
+    private Boolean studentHasJoined;
     private String status;
+    private long timeLeft;
 
-    public Lesson(int classListingId, int studentId, int hours, Date lessonDate, Boolean isAttended, String status) {
+    private Boolean studentHasLeft;
+    private Boolean teacherHasLeft;
+
+
+    private long timeStarted;
+
+
+    public Lesson(){
+
+    }
+    public Lesson(int classListingId, int studentId, int hours, LocalDate lessonDate, Boolean teacherHasJoined, Boolean studentHasJoined, String status, long timeLeft) {
         this.classListingId = classListingId;
         this.studentId = studentId;
         this.hours = hours;
         this.lessonDate = lessonDate;
-        this.isAttended = isAttended;
+        this.teacherHasJoined = teacherHasJoined;
+        this.studentHasJoined = studentHasJoined;
         this.status = status;
+        this.timeLeft = timeLeft;
     }
+
 
     public int getId() {
         return id;
@@ -57,21 +72,56 @@ public class Lesson {
         this.hours = hours;
     }
 
-    public Date getLessonDate() {
+    public LocalDate getLessonDate() {
         return lessonDate;
     }
 
-    public void setLessonDate(Date lessonDate) {
+    public void setLessonDate(LocalDate lessonDate) {
         this.lessonDate = lessonDate;
     }
 
-
-    public Boolean getAttended() {
-        return isAttended;
+    public Boolean getTeacherHasJoined() {
+        return teacherHasJoined;
     }
 
-    public void setAttended(Boolean attended) {
-        isAttended = attended;
+    public void setTeacherHasJoined(Boolean teacherHasJoined) {
+        this.teacherHasJoined = teacherHasJoined;
+    }
+
+    public Boolean getStudentHasJoined() {
+        return studentHasJoined;
+    }
+
+    public void setStudentHasJoined(Boolean studentHasJoined) {
+        this.studentHasJoined = studentHasJoined;
+    }
+
+    public long getTimeLeft() {
+        return timeLeft;
+    }
+
+    public void setTimeLeft(long timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
+
+
+
+    //    public Boolean getAttended() {
+//        return isAttended;
+//    }
+//
+//    public void setAttended(Boolean attended) {
+//        isAttended = attended;
+//    }
+
+
+    public long getTimeStarted() {
+        return timeStarted;
+    }
+
+    public void setTimeStarted(long timeStarted) {
+        this.timeStarted = timeStarted;
     }
 
     public String getStatus() {
@@ -80,5 +130,21 @@ public class Lesson {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Boolean getStudentHasLeft() {
+        return studentHasLeft;
+    }
+
+    public void setStudentHasLeft(Boolean studentHasLeft) {
+        this.studentHasLeft = studentHasLeft;
+    }
+
+    public Boolean getTeacherHasLeft() {
+        return teacherHasLeft;
+    }
+
+    public void setTeacherHasLeft(Boolean teacherHasLeft) {
+        this.teacherHasLeft = teacherHasLeft;
     }
 }

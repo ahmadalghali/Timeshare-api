@@ -72,6 +72,17 @@ public class UserService {
 
     }
 
+//    private void changePhotos() {
+//        List<User> users = userRepository.getAll();
+//
+//        int i = 1;
+//        for(User user : users){
+//            user.setProfileImageUrl("https://randomuser.me/api/portraits/men/" + i + ".jpg");
+//            userRepository.save(user);
+//            i++;
+//        }
+//    }
+
 
     public User logout(User user) {
 
@@ -93,11 +104,11 @@ public class UserService {
         return DBuser;
     }
 
-    public void rateUser(int userId, int rating) {
+    public void rateUser(int userId, int rating, String comments) {
 
 //      add rating
 
-        Rating newRating = new Rating(rating, userId);
+        Rating newRating = new Rating(rating, userId, comments);
         ratingRepository.save(newRating);
 
 

@@ -2,7 +2,9 @@ package uk.ac.greenwich.aa5119a.demotimebank.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
+@Table("_user")
 public class User {
 
     @Id

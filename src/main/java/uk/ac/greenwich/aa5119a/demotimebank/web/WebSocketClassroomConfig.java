@@ -8,19 +8,19 @@
 //
 //@Configuration
 //@EnableWebSocketMessageBroker
-//public class WebSocketNotificationConfig implements WebSocketMessageBrokerConfigurer {
+//public class WebSocketClassroomConfig implements WebSocketMessageBrokerConfigurer {
 //
 //
 //    @Override
 //    public void configureMessageBroker(MessageBrokerRegistry config) {
-//        config.enableSimpleBroker("topic");
-//        config.setApplicationDestinationPrefixes("app");
+//        config.enableSimpleBroker("/topic","/queue","/user");
+//        config.setApplicationDestinationPrefixes("/app");
 //
 //    }
 //
 //    @Override
 //    public void registerStompEndpoints(StompEndpointRegistry registry) {
-//        registry.addEndpoint("/gs-guide-websocket").withSockJS();
+//        registry.addEndpoint("/timelearn").withSockJS();
 //    }
 //
 //}

@@ -2,8 +2,6 @@ package uk.ac.greenwich.aa5119a.demotimebank.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import uk.ac.greenwich.aa5119a.demotimebank.model.notification.Notification;
 import uk.ac.greenwich.aa5119a.demotimebank.model.notification.NotificationClassBooking;

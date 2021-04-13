@@ -12,13 +12,13 @@ import java.util.List;
 public interface ClassBookingRepository extends CrudRepository<ClassBooking, Integer> {
 
     @Query("SELECT cb.id, cb.class_id, cb.student_id,cb.is_accepted,cb.hours, cb.class_date " +
-            "FROM class_booking cb JOIN teacher_listing class ON class.id = cb.class_id JOIN user u ON u.id = class.teacher_id" +
-            " WHERE class.teacher_id = :teacherId AND cb.is_accepted = false")
+            "FROM class_booking cb JOIN teacher_listing class ON class.id = cb.class_id JOIN _user u ON u.id = class.teacher_id" +
+            " WHERE class.teacher_id = :teacherId AND cb.is_accepted = 0")
     List<ClassBooking> findAllByTeacherId(@Param("teacherId") int teacherId);
 
 
 
-    @Query("select * from class_booking where student_id = :studentId and is_accepted = true")
+    @Query("select * from class_booking where student_id = :studentId and is_accepted = 1")
     List<ClassBooking> findAllByStudentIdAndAcceptedIsTrue(int studentId);
 
 
