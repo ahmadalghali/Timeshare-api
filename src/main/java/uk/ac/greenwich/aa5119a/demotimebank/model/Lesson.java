@@ -24,6 +24,8 @@ public class Lesson {
 
     private long timeStarted;
 
+    private Boolean hasFinished;
+
 
     public Lesson(){
 
@@ -39,6 +41,14 @@ public class Lesson {
         this.timeLeft = timeLeft;
     }
 
+
+    public Boolean getHasFinished() {
+        return hasFinished;
+    }
+
+    public void setHasFinished(Boolean hasFinished) {
+        this.hasFinished = hasFinished;
+    }
 
     public int getId() {
         return id;
@@ -147,4 +157,6 @@ public class Lesson {
     public void setTeacherHasLeft(Boolean teacherHasLeft) {
         this.teacherHasLeft = teacherHasLeft;
     }
+
+
 }

@@ -11,6 +11,7 @@ import uk.ac.greenwich.aa5119a.demotimebank.repository.RatingRepository;
 import uk.ac.greenwich.aa5119a.demotimebank.repository.UserRepository;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -33,7 +34,17 @@ public class UserService {
 
         } else {
 
+            Random random = new Random();
+            int randomNum = random.nextInt(99 - 1 + 1) + 1;
+
+            String[] cities = {"London", "Manchester", "Leeds", "Liverpool", "Bristol", "Birmingham", "Cardiff", "Belfast"};
+            int randomCity = random.nextInt(7 - 1 + 1) + 1;
+
+            user.setCity(cities[randomCity]);
+
+            user.setProfileImageUrl("https://randomuser.me/api/portraits/men/" + randomNum + ".jpg");
 //            userRepository.save(user);
+            user.setTimeCreditsCount(3.0);
             registerResponse.setUser(userRepository.save(user));
             registerResponse.setMessage("registered");
 
@@ -52,6 +63,8 @@ public class UserService {
         if (DBuser != null) {
 
             if (DBuser.getPassword().equals(user.getPassword())) {
+                DBuser.setLoginCount(DBuser.getLoginCount()+ 1);
+                userRepository.save(DBuser);
                 loginResponse.setUser(DBuser);
                 loginResponse.setMessage("logged in");
 
@@ -72,6 +85,19 @@ public class UserService {
 
     }
 
+
+    public boolean checkBalance(int studentId, double lessonPrice) {
+
+        boolean hasEnoughBalance = false;
+
+        User student = userRepository.findById(studentId).get();
+        if (student.getTimeCreditsCount() >= lessonPrice) {
+            hasEnoughBalance = true;
+        }
+
+        return hasEnoughBalance;
+
+    }
 //    private void changePhotos() {
 //        List<User> users = userRepository.getAll();
 //
@@ -138,6 +164,10 @@ public class UserService {
         }
 
         return totalStars / ratings.size();
+    }
+
+    public User refreshUserDetails(int userId) {
+        return userRepository.findById(userId).get();
     }
 }
 

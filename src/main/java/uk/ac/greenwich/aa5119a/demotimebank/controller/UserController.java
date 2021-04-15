@@ -41,15 +41,19 @@ public class UserController {
         return userService.logout(user);
     }
 
-    @PostMapping("/rate/{userId}/{rating}")
-    public void rateUser(@PathVariable("userId") int userId, @PathVariable("rating") int rating, String comments){
-         userService.rateUser(userId, rating, comments);
-    }
+//    @PostMapping("/rate/{userId}/{rating}")
+//    public void rateUser(@PathVariable("userId") int userId, @PathVariable("rating") int rating, String comments){
+//         userService.rateUser(userId, rating, comments);
+//    }
 
     @PostMapping("user/rate")
     public Boolean rateUser(@RequestParam int userId, @RequestParam float rating, @RequestParam String comments){
         return ratingService.rateUser(userId, rating, comments);
     }
 
+    @GetMapping("user")
+    public User refreshUserDetails(@RequestParam int userId){
+        return userService.refreshUserDetails(userId);
+    }
 
 }

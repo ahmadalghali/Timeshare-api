@@ -12,6 +12,8 @@ public class ClassBooking {
     private int hours;
     private long classDate;
 
+
+
     public ClassBooking(int classId, int studentId, boolean isAccepted, int hours, long classDate) {
         this.classId = classId;
         this.studentId = studentId;

@@ -35,6 +35,9 @@ public class LessonService {
     @Autowired
     SubjectRepository subjectRepository;
 
+    @Autowired
+    UserService userService;
+
 
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -61,6 +64,13 @@ public class LessonService {
         lesson.setTeacherHasJoined(false);
         lesson.setStatus("Not Started");
         lesson.setTimeLeft(classBooking.getHours() * 3600000);
+        lesson.setHasFinished(false);
+        lesson.setStudentHasLeft(false);
+        lesson.setTeacherHasLeft(false);
+
+
+
+
 
         lessonRepository.save(lesson);
 
@@ -86,6 +96,11 @@ public class LessonService {
         lessonDTO.setSubjectTitle(subject.getTitle());
         lessonDTO.setSubjectIconUrl(subject.getIconUrl());
 
+        lessonDTO.setTeacherEmail(teacher.getEmail());
+        lessonDTO.setStudentEmail(student.getEmail());
+
+        lessonDTO.setStudentPhoneNumber(student.getPhoneNumber());
+        lessonDTO.setTeacherPhoneNumber(teacher.getPhoneNumber());
 
         return lessonDTO;
     }
@@ -142,11 +157,17 @@ public class LessonService {
     public Boolean joinLesson(int lessonId) {
         try {
             Lesson lesson = lessonRepository.findById(lessonId).get();
-            lesson.setStudentHasJoined(true);
-            lessonRepository.save(lesson);
+
+            if (userService.checkBalance(lesson.getStudentId(), convertToLessonDTO(lesson).getLessonPrice())) {
+                lesson.setStudentHasJoined(true);
+                lessonRepository.save(lesson);
+
+                return true;
+            } else {
+                return false;
+            }
 
 
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -301,22 +322,27 @@ public class LessonService {
             lesson.setTimeLeft(timeLeft);
             lesson.setTimeStarted(System.currentTimeMillis());
 
-            lessonRepository.save(lesson);
+            lesson.setHasFinished(false);
+
 
             hasTimeLeft = true;
 
         } else {
 
+            lesson.setHasFinished(true);
+
             // lesson is over
             hasTimeLeft = false;
+
         }
+
+        lessonRepository.save(lesson);
 
 
         res.put("timeLeft", lesson.getTimeLeft());
         res.put("hasTimeLeft", hasTimeLeft);
 
         return res;
-
 
 
 //        return lessonRepository.findById(lessonId).get().getTimeLeft();
@@ -371,6 +397,165 @@ public class LessonService {
         }
 
 
+    }
+
+
+    public Boolean endLesson(int lessonId, int userId) {
+        try {
+            Lesson lesson = lessonRepository.findById(lessonId).get();
+
+            if(lesson.getTeacherHasLeft() && lesson.getTimeLeft() > 10000){
+                return true;
+            }
+
+            if(lesson.getStudentHasLeft() && lesson.getTimeStarted() == -1){
+                return true;
+            }
+
+            TeacherListing classListing = teacherListingRepository.findById(lesson.getClassListingId()).get();
+
+            int teacherId = classListing.getUserId();
+
+            payTeacher(lesson, userId);
+
+//            if (lesson.getStudentId() == userId) {
+////                payTeacher(teacherId, lesson.getStudentId(), convertToLessonDTO(lesson).getLessonPrice());
+//                deductBalance(lesson.getStudentId(), convertToLessonDTO(lesson).getLessonPrice());
+//            } else {
+//                addToBalance(userId, convertToLessonDTO(lesson).getLessonPrice());
+//            }
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void payTeacher(Lesson lesson, int userId) {
+        if (lesson.getStudentId() == userId) {
+//                payTeacher(teacherId, lesson.getStudentId(), convertToLessonDTO(lesson).getLessonPrice());
+            deductBalance(lesson.getStudentId(), convertToLessonDTO(lesson).getLessonPrice());
+        } else {
+            addToBalance(userId, convertToLessonDTO(lesson).getLessonPrice());
+        }
+    }
+
+    private void addToBalance(int teacherId, double lessonPrice) {
+        try {
+            User teacher = userRepository.findById(teacherId).get();
+
+            teacher.setTimeCreditsCount(teacher.getTimeCreditsCount() + lessonPrice);
+
+            userRepository.save(teacher);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deductBalance(int studentId, double lessonPrice) {
+
+        try {
+            User student = userRepository.findById(studentId).get();
+
+            student.setTimeCreditsCount(student.getTimeCreditsCount() - lessonPrice);
+
+            userRepository.save(student);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Boolean quitLesson(int lessonId, int userId) {
+
+        Lesson lesson = lessonRepository.findById(lessonId).get();
+
+        TeacherListing classListing = teacherListingRepository.findById(lesson.getClassListingId()).get();
+
+        try {
+
+            int teacherId = classListing.getUserId();
+
+            boolean isStudent = lesson.getStudentId() == userId;
+
+            if (isStudent) {
+                if (lesson.getTimeStarted() != -1) {
+//                    payTeacher(teacherId, lesson.getStudentId(), convertToLessonDTO(lesson).getLessonPrice());
+                    payTeacher(lesson, userId);
+
+                }
+
+                lesson.setStudentHasLeft(true);
+
+            } else {
+                //teacher quit
+
+                boolean lessonHasStarted = lesson.getTimeStarted() != -1;
+                if (lessonHasStarted && !lesson.getStudentHasJoined()) {
+                    refundStudent(teacherId, lesson.getStudentId(), convertToLessonDTO(lesson).getLessonPrice());
+                }
+
+                lesson.setTeacherHasLeft(true);
+            }
+
+            lesson.setHasFinished(true);
+
+            lessonRepository.save(lesson);
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
+
+//    private void payTeacher(int teacherId, int studentId, double lessonPrice) {
+//
+//        try {
+//            User student = userRepository.findById(studentId).get();
+//            User teacher = userRepository.findById(teacherId).get();
+//
+//            student.setTimeCreditsCount(student.getTimeCreditsCount() - lessonPrice);
+//            teacher.setTimeCreditsCount(teacher.getTimeCreditsCount() + lessonPrice);
+//
+//            userRepository.save(teacher);
+//            userRepository.save(student);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+
+    private void refundStudent(int teacherId, int studentId, double lessonPrice) {
+
+
+//        if (lesson.getStudentId() == userId) {
+////                payTeacher(teacherId, lesson.getStudentId(), convertToLessonDTO(lesson).getLessonPrice());
+//            deductBalance(lesson.getStudentId(), convertToLessonDTO(lesson).getLessonPrice());
+//        } else {
+//            addToBalance(userId, convertToLessonDTO(lesson).getLessonPrice());
+//        }
+//        try {
+//            User student = userRepository.findById(studentId).get();
+//            User teacher = userRepository.findById(teacherId).get();
+//
+//            teacher.setTimeCreditsCount(teacher.getTimeCreditsCount() - lessonPrice);
+//            student.setTimeCreditsCount(student.getTimeCreditsCount() + lessonPrice);
+//
+//            userRepository.save(teacher);
+//            userRepository.save(student);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 

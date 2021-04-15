@@ -86,4 +86,13 @@ public class LessonController {
     }
 
 
+    @PutMapping("lesson/end")
+    public Boolean endLesson(@RequestParam int lessonId, @RequestParam int userId){
+        return lessonService.endLesson(lessonId, userId);
+    }
+
+    @PutMapping("lesson/quit")
+    public Boolean quitLesson(@RequestParam int lessonId, @RequestParam int userId){
+        return lessonService.quitLesson(lessonId, userId);
+    }
 }

@@ -47,6 +47,11 @@ public class AcademyService {
     private NotificationClassConfirmationRepository notificationClassConfirmationRepository;
 
 
+    @Autowired
+    UserService userService;
+
+
+
     public TeacherListingResponse addListing(TeacherListingRequest listingRequest) {
 
         TeacherListingResponse teacherListingResponse = new TeacherListingResponse();
@@ -62,6 +67,8 @@ public class AcademyService {
                     listingRequest.getQualificationImageUrl(),
                     listingRequest.getTimeRate()
             );
+
+//            teacherListing.setPhoneNumber(teacherListing.getPhoneNumber());
 
 //            if(listingRequest.getAvailabilityIds().size() > 0){
             for (int availabilityId : listingRequest.getAvailabilityIds()) {
@@ -124,16 +131,22 @@ public class AcademyService {
 
     public Boolean bookClass(ClassBookingRequest classBookingRequest) {
 
-//        try {
+        TeacherListing listing = teacherListingRepository.findById(classBookingRequest.getClassId()).get();
 
+        double lessonPrice = listing.getTimeRate() * classBookingRequest.getHours();
+
+        if(classBookingRequest.getStudentId() == listing.getUserId()){
+            return false;
+        }
+
+        if(userService.checkBalance(classBookingRequest.getStudentId(),lessonPrice)){
             classBookingRepository.save(new ClassBooking(classBookingRequest.getClassId(), classBookingRequest.getStudentId(), classBookingRequest.isAccepted(), classBookingRequest.getHours(), classBookingRequest.getClassDate()));
 
             return true;
+        }else {
+            return false;
+        }
 
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
     }
 
     public Boolean isClassRequestedByUser(int classId, int studentId) {

@@ -23,7 +23,7 @@ public class TeacherListing {
     private Set<AvailabilityRef> availabilityIds = new HashSet<>();
     private Set<TeachingStyleRef> teachingStyleIds = new HashSet<>();
 
-
+//    private String phoneNumber;
 
     public TeacherListing(){
 
@@ -71,6 +71,15 @@ public class TeacherListing {
     public Set<Integer> getTeachingStyleIds(){
         return this.teachingStyleIds.stream().map(TeachingStyleRef::getTeachingStyleId).collect(Collectors.toSet());
     }
+
+
+//    public String getPhoneNumber() {
+//        return phoneNumber;
+//    }
+//
+//    public void setPhoneNumber(String phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
 
     public int getId() {
         return id;

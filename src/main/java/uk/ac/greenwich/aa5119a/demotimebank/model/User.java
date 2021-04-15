@@ -18,6 +18,8 @@ public class User {
     private double ratingScore;
     private int ratingCount;
     private double timeCreditsCount;
+    private String phoneNumber;
+    private int loginCount;
 
 
     protected User() {
@@ -102,5 +104,22 @@ public class User {
 
     public void setTimeCreditsCount(double timeCreditsCount) {
         this.timeCreditsCount = timeCreditsCount;
+    }
+
+
+    public int getLoginCount() {
+        return loginCount;
+    }
+
+    public void setLoginCount(int loginCount) {
+        this.loginCount = loginCount;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
