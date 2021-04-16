@@ -51,6 +51,11 @@ public class UserController {
         return ratingService.rateUser(userId, rating, comments);
     }
 
+//    @PostMapping("users/rate")
+//    public void updateRatings(){
+//         ratingService.updateAllUserRatings();
+//    }
+
     @GetMapping("user")
     public User refreshUserDetails(@RequestParam int userId){
         return userService.refreshUserDetails(userId);

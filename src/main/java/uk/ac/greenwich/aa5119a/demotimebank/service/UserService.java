@@ -22,6 +22,9 @@ public class UserService {
     @Autowired
     RatingRepository ratingRepository;
 
+    @Autowired
+    RatingService ratingService;
+
     public RegisterResponse register(User user) {
 
         RegisterResponse registerResponse = new RegisterResponse();
@@ -55,6 +58,7 @@ public class UserService {
 
 
     public LoginResponse login(User user) {
+
 
         User DBuser = userRepository.findByEmail(user.getEmail());
 
@@ -130,30 +134,30 @@ public class UserService {
         return DBuser;
     }
 
-    public void rateUser(int userId, int rating, String comments) {
-
-//      add rating
-
-        Rating newRating = new Rating(rating, userId, comments);
-        ratingRepository.save(newRating);
-
-
-//        updating user rating
-        List<Rating> userRatings = ratingRepository.findAllByUserId(userId);
-
-        User user = userRepository.findById(userId).get();
-
-        double updatedRating;
-
-        updatedRating = calculateAverageRating(userRatings);
-
-        user.setRatingScore(updatedRating);
-        user.setRatingCount(userRatings.size());
-
-        userRepository.save(user);
-
-    }
-
+//    public void rateUser(int userId, int rating, String comments) {
+//
+////      add rating
+//
+//        Rating newRating = new Rating(rating, userId, comments);
+//        ratingRepository.save(newRating);
+//
+//
+////        updating user rating
+//        List<Rating> userRatings = ratingRepository.findAllByUserId(userId);
+//
+//        User user = userRepository.findById(userId).get();
+//
+//        double updatedRating;
+//
+//        updatedRating = calculateAverageRating(userRatings);
+//
+//        user.setRatingScore(updatedRating);
+//        user.setRatingCount(userRatings.size());
+//
+//        userRepository.save(user);
+//
+//    }
+//
     private double calculateAverageRating(List<Rating> ratings) {
 
         int totalStars = 0;
@@ -167,6 +171,7 @@ public class UserService {
     }
 
     public User refreshUserDetails(int userId) {
+        ratingService.updateUserRatings(userId);
         return userRepository.findById(userId).get();
     }
 }

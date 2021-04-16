@@ -8,6 +8,7 @@ public class LessonDTO {
     private int id;
     private int classListingId;
     private int studentId;
+    private int teacherId;
     private String studentFirstName;
     private String teacherFirstName;
     private int hours;
@@ -42,6 +43,14 @@ public class LessonDTO {
     private String teacherEmail;
     private String studentEmail;
 
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+    }
 
     public String getTeacherPhoneNumber() {
         return teacherPhoneNumber;

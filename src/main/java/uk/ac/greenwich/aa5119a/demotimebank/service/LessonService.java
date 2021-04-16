@@ -54,8 +54,10 @@ public class LessonService {
     public void createLesson(ClassBooking classBooking) {
 //        Lesson lesson = new Lesson(classBooking.getClassId(), classBooking.getStudentId(), classBooking.getHours(), new Date(classBooking.getClassDate()), false, "Not Started", );
 
+        TeacherListing listing = teacherListingRepository.findById(classBooking.getClassId()).get();
         Lesson lesson = new Lesson();
         lesson.setClassListingId(classBooking.getClassId());
+        lesson.setTeacherId(listing.getUserId());
         lesson.setStudentId(classBooking.getStudentId());
         lesson.setHours(classBooking.getHours());
 //        lesson.setLessonDate(new Date(classBooking.getClassDate()));
@@ -64,6 +66,7 @@ public class LessonService {
         lesson.setTeacherHasJoined(false);
         lesson.setStatus("Not Started");
         lesson.setTimeLeft(classBooking.getHours() * 3600000);
+        lesson.setTimeStarted(-1);
         lesson.setHasFinished(false);
         lesson.setStudentHasLeft(false);
         lesson.setTeacherHasLeft(false);
